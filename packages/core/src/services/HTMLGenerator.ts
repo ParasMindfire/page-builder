@@ -8,10 +8,11 @@ interface StampRecord {
 }
 
 interface SVGRecord {
-  el: SVGElement;
+  el: SVGSVGElement;
   prevWidth: string | null;
   prevHeight: string | null;
   prevViewBox: string | null;
+  prevStyle: string;
   addedViewBox: boolean;
 }
 
@@ -42,13 +43,16 @@ const EDITOR_NODES_SELECTOR = [
   '.upload-btn',
   '.edit-link',
   '.edit-link-form',
-  'input',
   '.cell-controls',
   '.add-row-button',
   '.add-multiple-rows-button',
   '.table-btn-container',
   '.drop-preview.visible',
+  // General inputs except radio (radio handled separately in MUI strip)
+  'input:not([type="radio"])',
 ].join(', ');
+
+const SVG_ACCESSIBILITY_SELECTOR = 'svg title, svg desc';
 
 const EDITOR_ATTRS_TO_STRIP = ['contenteditable', 'draggable'] as const;
 
@@ -62,6 +66,64 @@ const SVG_CSS_PROPS = [
   'opacity',
   'fill-opacity',
   'stroke-opacity',
+] as const;
+
+const DESCENDANT_LAYOUT_PROPS = [
+  'display',
+  'flex-direction',
+  'flex-wrap',
+  'align-items',
+  'justify-content',
+  'gap',
+  'flex',
+  'flex-shrink',
+  'flex-grow',
+  'flex-basis',
+  'grid-template-columns',
+  'grid-template-rows',
+  'grid-column',
+  'grid-row',
+] as const;
+
+const VISUAL_PROPS_TO_STAMP = [
+  'color',
+  'background-color',
+  'border',
+  'border-radius',
+  'border-color',
+  'border-width',
+  'border-style',
+  'border-top',
+  'border-right',
+  'border-bottom',
+  'border-left',
+  'padding',
+  'padding-top',
+  'padding-right',
+  'padding-bottom',
+  'padding-left',
+  'margin',
+  'margin-top',
+  'margin-right',
+  'margin-bottom',
+  'margin-left',
+  'font-size',
+  'font-weight',
+  'font-family',
+  'font-style',
+  'line-height',
+  'letter-spacing',
+  'text-align',
+  'text-decoration',
+  'vertical-align',
+  'cursor',
+  'opacity',
+  'overflow',
+  'box-shadow',
+  'outline',
+  'visibility',
+  'pointer-events',
+  'white-space',
 ] as const;
 
 // ─── HTMLGenerator ────────────────────────────────────────────────────────────
@@ -78,50 +140,33 @@ export class HTMLGenerator {
 
   // ─── Public API ─────────────────────────────────────────────────────────────
 
-  /**
-   * Captures the live canvas and returns a self-contained HTML string.
-   *
-   * Phase order:
-   *   1. Stamp position:relative on canvas (makes it the containing block).
-   *   2. Stamp pixel-accurate top/left/width/height on each canvas child
-   *      using offsetTop/offsetLeft — canvas-relative, scroll-invariant.
-   *   3. Stamp width/height/display on table internals.
-   *   4. Stamp explicit dimensions on every SVG.
-   *   5. Deep-clone (all stamps travel with the clone).
-   *   6. Strip editor chrome from clone.
-   *   7. Restore live DOM exactly as it was.
-   *   8. Wrap clone content in self-contained HTML shell.
-   */
   generateHTML(): string {
     const canvasElement = document.getElementById('canvas');
     if (!canvasElement) {
       console.warn(
         '[HTMLGenerator] Canvas element not found — returning shell.'
       );
-      return this.buildHTMLShell('');
+      return this.buildHTMLShell('', '');
     }
 
+    const embeddedStyles = this.collectHeadStyles();
     const stampRecords = this.stampLayoutDimensions(canvasElement);
     const svgRecords = this.stampSVGDimensions(canvasElement);
-
     const clone = canvasElement.cloneNode(true) as HTMLElement;
 
     this.stripEditorChrome(clone);
-
     this.restoreStamps(stampRecords);
     this.restoreSVGStamps(svgRecords);
 
-    return this.buildHTMLShell(clone.innerHTML);
+    return this.buildHTMLShell(clone.innerHTML, embeddedStyles);
   }
 
   generateCSS(): string {
     const canvasElement = document.getElementById('canvas');
     if (!canvasElement) return '';
-
     const bgColor = window
       .getComputedStyle(canvasElement)
       .getPropertyValue('background-color');
-
     return [
       this.buildBaseCSS(bgColor),
       this.buildSVGChildCSS(canvasElement),
@@ -132,33 +177,27 @@ export class HTMLGenerator {
     this.styleElement.textContent = css;
   }
 
-  // ─── Phase 1 — stamp layout dimensions ──────────────────────────────────────
+  // ─── Phase 1 — collect all head <style> sheets ───────────────────────────────
 
-  /**
-   * WHY offsetTop/offsetLeft instead of getBoundingClientRect() or computed style:
-   *
-   *   getBoundingClientRect() → viewport-relative coordinates.
-   *   If the page has scrolled, or the canvas is not at the very top of the
-   *   viewport, these values are offset by scroll amount and will be wrong.
-   *
-   *   computed.getPropertyValue('top') → the CSS cascade value.
-   *   Returns 'auto' when top was not explicitly set, even if the element
-   *   renders at a specific pixel position. Useless for stamping.
-   *
-   *   el.offsetTop / el.offsetLeft → offset relative to el.offsetParent.
-   *   Because we stamp `position: relative` on the canvas FIRST, every
-   *   direct canvas child's offsetParent becomes the canvas itself.
-   *   Result: pixel-perfect canvas-relative coordinates, scroll-invariant,
-   *   viewport-position-invariant. This is the correct coordinate system
-   *   for the exported HTML where #canvas is also position:relative.
-   */
+  private collectHeadStyles(): string {
+    const sheets: string[] = [];
+    document
+      .querySelectorAll<HTMLStyleElement>('head style')
+      .forEach(styleEl => {
+        if (styleEl === this.styleElement) return;
+        const text = styleEl.textContent ?? '';
+        if (text.trim()) sheets.push(text);
+      });
+    return sheets.join('\n');
+  }
+
+  // ─── Phase 2-4 — stamp layout dimensions ─────────────────────────────────────
+
   private stampLayoutDimensions(canvas: HTMLElement): StampRecord[] {
     const records: StampRecord[] = [];
 
-    // ── Step 1: stamp position:relative on canvas ────────────────────────────
-    // MUST happen before reading offsetTop/offsetLeft on children, because
-    // offsetParent is resolved lazily — if canvas is not positioned, children's
-    // offsetParent will be a higher ancestor and their offsets will be wrong.
+    // Stamp canvas itself as position:relative FIRST — makes it the offsetParent
+    // so offsetTop/offsetLeft on children are canvas-relative coordinates.
     {
       const prevStyle = canvas.getAttribute('style') ?? '';
       if (!canvas.style.position) {
@@ -170,12 +209,19 @@ export class HTMLGenerator {
       }
     }
 
-    // ── Step 2: stamp canvas children ────────────────────────────────────────
+    // Direct canvas children — full position + coordinates
     Array.from(canvas.children).forEach(child => {
       this.stampCanvasChild(child as HTMLElement, records);
     });
 
-    // ── Step 3: stamp table internals ────────────────────────────────────────
+    // All non-SVG descendants — layout + visual props
+    canvas.querySelectorAll<HTMLElement>('*').forEach(el => {
+      if (el.parentElement === canvas) return;
+      if (el instanceof SVGElement) return;
+      this.stampDescendant(el, records);
+    });
+
+    // Table internals — belt-and-suspenders
     canvas.querySelectorAll<HTMLElement>(TABLE_SELECTORS).forEach(el => {
       this.stampTableInternal(el, records);
     });
@@ -183,37 +229,22 @@ export class HTMLGenerator {
     return records;
   }
 
-  /**
-   * Stamps a top-level canvas child with all properties needed for accurate
-   * self-contained rendering:
-   *   - position (absolute/relative/fixed)
-   *   - top, left  ← from offsetTop/offsetLeft (canvas-relative, correct)
-   *   - right, bottom ← from computed style only when explicitly non-auto
-   *   - width, height ← from getBoundingClientRect (size is viewport-invariant)
-   *   - display
-   *   - z-index
-   */
   private stampCanvasChild(el: HTMLElement, records: StampRecord[]): void {
     const computed = window.getComputedStyle(el);
     const rect = el.getBoundingClientRect();
     const prevStyle = el.getAttribute('style') ?? '';
     const extras: string[] = [];
 
-    // Size — getBoundingClientRect is fine for dimensions (not coordinates)
-    if (!el.style.width && rect.width > 0) {
+    if (!el.style.width && rect.width > 0)
       extras.push(`width: ${Math.round(rect.width)}px`);
-    }
-    if (!el.style.height && rect.height > 0) {
+    if (!el.style.height && rect.height > 0)
       extras.push(`height: ${Math.round(rect.height)}px`);
-    }
 
-    // Display
     if (!el.style.display) {
       const disp = computed.getPropertyValue('display');
       if (disp && disp !== 'inline') extras.push(`display: ${disp}`);
     }
 
-    // Position type
     const position = computed.getPropertyValue('position');
     const effectivePosition = el.style.position || position;
 
@@ -221,36 +252,21 @@ export class HTMLGenerator {
       extras.push(`position: ${position}`);
     }
 
-    // Coordinates — only for positioned elements
     if (effectivePosition && effectivePosition !== 'static') {
-      // offsetTop/offsetLeft: relative to offsetParent = canvas (after stamp above)
-      // This is the scroll-invariant, canvas-relative truth.
-      if (!el.style.top) {
-        extras.push(`top: ${el.offsetTop}px`);
-      }
-      if (!el.style.left) {
-        extras.push(`left: ${el.offsetLeft}px`);
-      }
+      if (!el.style.top) extras.push(`top: ${el.offsetTop}px`);
+      if (!el.style.left) extras.push(`left: ${el.offsetLeft}px`);
 
-      // right/bottom: only stamp when explicitly non-auto in the cascade
       const cr = computed.getPropertyValue('right');
-      if (!el.style.right && cr && cr !== 'auto') {
-        extras.push(`right: ${cr}`);
-      }
+      if (!el.style.right && cr && cr !== 'auto') extras.push(`right: ${cr}`);
       const cb = computed.getPropertyValue('bottom');
-      if (!el.style.bottom && cb && cb !== 'auto') {
-        extras.push(`bottom: ${cb}`);
-      }
+      if (!el.style.bottom && cb && cb !== 'auto') extras.push(`bottom: ${cb}`);
 
-      // z-index
       const zi = computed.getPropertyValue('z-index');
-      if (!el.style.zIndex && zi && zi !== 'auto') {
+      if (!el.style.zIndex && zi && zi !== 'auto')
         extras.push(`z-index: ${zi}`);
-      }
     }
 
     if (extras.length === 0) return;
-
     const base = prevStyle
       ? prevStyle.trimEnd().replace(/;?\s*$/, ';') + ' '
       : '';
@@ -259,31 +275,119 @@ export class HTMLGenerator {
   }
 
   /**
-   * Stamps size + display onto table internals.
-   * These elements are not position:absolute — they use grid/flex sizing
-   * from main.css. We preserve rendered dimensions so they don't collapse
-   * in the exported page where main.css is absent.
-   * We do NOT stamp top/left here — table rows/cells are in normal flow.
+   * Stamps layout + visual props on a descendant element.
+   *
+   * IMPORTANT — we do NOT stamp width on text-content elements (Typography,
+   * spans, labels). Stamping a pixel width on text forces it to wrap at
+   * exactly that width even if the parent container is wider in the export.
+   * We only stamp width on structural/block containers (divs, sections etc.)
+   * that have a non-inline display.
+   *
+   * MUI text nodes (Typography = <p>, legend = <legend>, body2 = <p>) must
+   * receive white-space:nowrap or keep their natural flow width — not a
+   * pixel-locked width — so the text doesn't wrap.
    */
+  private stampDescendant(el: HTMLElement, records: StampRecord[]): void {
+    const computed = window.getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    const prevStyle = el.getAttribute('style') ?? '';
+    const extras: string[] = [];
+
+    const tag = el.tagName.toLowerCase();
+    const display = computed.getPropertyValue('display');
+
+    // Stamp width only on structural block/flex/grid containers, NOT on
+    // inline or text-content elements. Stamping width on <p>, <span>, <legend>
+    // etc. causes text to wrap at the stamped pixel width.
+    const isTextNode =
+      [
+        'p',
+        'span',
+        'legend',
+        'label',
+        'a',
+        'li',
+        'td',
+        'th',
+        'dt',
+        'dd',
+        'caption',
+      ].includes(tag) ||
+      display === 'inline' ||
+      display === 'inline-block' ||
+      display === 'inline-flex';
+
+    if (!isTextNode && !el.style.width && rect.width > 0) {
+      extras.push(`width: ${Math.round(rect.width)}px`);
+    }
+    if (!el.style.height && rect.height > 0) {
+      // Never stamp height on text containers — let them size to content
+      if (!isTextNode && display !== 'inline') {
+        extras.push(`height: ${Math.round(rect.height)}px`);
+      }
+    }
+
+    // Layout properties (flex/grid from main.css or emotion)
+    DESCENDANT_LAYOUT_PROPS.forEach(prop => {
+      const styleKey = prop.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      if ((el.style as any)[styleKey]) return;
+      const val = computed.getPropertyValue(prop);
+      if (
+        !val ||
+        val === 'normal' ||
+        val === 'auto' ||
+        val === '0px' ||
+        val === 'none'
+      )
+        return;
+      if (prop === 'display' && (val === 'block' || val === 'inline')) return;
+      extras.push(`${prop}: ${val}`);
+    });
+
+    // Visual properties (MUI emotion — class rules lost on innerHTML clone)
+    VISUAL_PROPS_TO_STAMP.forEach(prop => {
+      const styleKey = prop.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      if ((el.style as any)[styleKey]) return;
+      const val = computed.getPropertyValue(prop);
+      if (!val || val === 'none' || val === 'normal' || val === 'auto') return;
+      if (prop === 'color' && val === 'rgb(0, 0, 0)') return;
+      if (
+        prop === 'background-color' &&
+        (val === 'rgba(0, 0, 0, 0)' || val === 'transparent')
+      )
+        return;
+      if (prop === 'font-family' && val.toLowerCase().includes('times')) return;
+      if (prop === 'cursor' && val === 'auto') return;
+      if (prop === 'visibility' && val === 'visible') return;
+      if (prop === 'pointer-events' && val === 'auto') return;
+      // white-space:nowrap on text elements prevents wrapping — critical for MUI Typography
+      extras.push(`${prop}: ${val}`);
+    });
+
+    if (extras.length === 0) return;
+    const base = prevStyle
+      ? prevStyle.trimEnd().replace(/;?\s*$/, ';') + ' '
+      : '';
+    el.setAttribute('style', base + extras.join('; ') + ';');
+    records.push({ el, prevStyle });
+  }
+
   private stampTableInternal(el: HTMLElement, records: StampRecord[]): void {
     const computed = window.getComputedStyle(el);
     const rect = el.getBoundingClientRect();
     const prevStyle = el.getAttribute('style') ?? '';
     const extras: string[] = [];
 
-    if (!el.style.width && rect.width > 0) {
+    if (!el.style.width && rect.width > 0)
       extras.push(`width: ${Math.round(rect.width)}px`);
-    }
-    if (!el.style.height && rect.height > 0) {
+    if (!el.style.height && rect.height > 0)
       extras.push(`height: ${Math.round(rect.height)}px`);
-    }
     if (!el.style.display) {
       const disp = computed.getPropertyValue('display');
       if (disp && disp !== 'inline') extras.push(`display: ${disp}`);
     }
 
     if (extras.length === 0) return;
-
     const base = prevStyle
       ? prevStyle.trimEnd().replace(/;?\s*$/, ';') + ' '
       : '';
@@ -293,20 +397,17 @@ export class HTMLGenerator {
 
   private restoreStamps(records: StampRecord[]): void {
     records.forEach(({ el, prevStyle }) => {
-      if (prevStyle) {
-        el.setAttribute('style', prevStyle);
-      } else {
-        el.removeAttribute('style');
-      }
+      if (prevStyle) el.setAttribute('style', prevStyle);
+      else el.removeAttribute('style');
     });
   }
 
-  // ─── Phase 2 — stamp SVG dimensions ─────────────────────────────────────────
+  // ─── Phase 5 — stamp SVG dimensions ─────────────────────────────────────────
 
   private stampSVGDimensions(canvas: HTMLElement): SVGRecord[] {
     const records: SVGRecord[] = [];
 
-    canvas.querySelectorAll<SVGElement>('svg').forEach(svg => {
+    canvas.querySelectorAll<SVGSVGElement>('svg').forEach(svg => {
       const rect = svg.getBoundingClientRect();
       if (rect.width === 0) return;
 
@@ -316,19 +417,29 @@ export class HTMLGenerator {
       const prevWidth = svg.getAttribute('width');
       const prevHeight = svg.getAttribute('height');
       const prevViewBox = svg.getAttribute('viewBox');
+      const prevStyle = svg.getAttribute('style') ?? '';
       const addedViewBox = !prevViewBox && w > 0 && h > 0;
 
       svg.setAttribute('width', String(w));
       svg.setAttribute('height', String(h));
-      if (addedViewBox) {
-        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-      }
+      if (addedViewBox) svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+      const computed = window.getComputedStyle(svg);
+      const disp = computed.getPropertyValue('display');
+      const styleExtras = [`width: ${w}px`, `height: ${h}px`, `flex-shrink: 0`];
+      if (disp && disp !== 'inline') styleExtras.push(`display: ${disp}`);
+
+      const base = prevStyle
+        ? prevStyle.trimEnd().replace(/;?\s*$/, ';') + ' '
+        : '';
+      svg.setAttribute('style', base + styleExtras.join('; ') + ';');
 
       records.push({
         el: svg,
         prevWidth,
         prevHeight,
         prevViewBox,
+        prevStyle,
         addedViewBox,
       });
     });
@@ -338,25 +449,70 @@ export class HTMLGenerator {
 
   private restoreSVGStamps(records: SVGRecord[]): void {
     records.forEach(
-      ({ el, prevWidth, prevHeight, prevViewBox, addedViewBox }) => {
+      ({ el, prevWidth, prevHeight, prevViewBox, prevStyle, addedViewBox }) => {
         prevWidth !== null
           ? el.setAttribute('width', prevWidth)
           : el.removeAttribute('width');
         prevHeight !== null
           ? el.setAttribute('height', prevHeight)
           : el.removeAttribute('height');
-        if (addedViewBox) {
-          el.removeAttribute('viewBox');
-        } else if (prevViewBox !== null) {
-          el.setAttribute('viewBox', prevViewBox);
-        }
+        if (addedViewBox) el.removeAttribute('viewBox');
+        else if (prevViewBox !== null) el.setAttribute('viewBox', prevViewBox);
+        if (prevStyle) el.setAttribute('style', prevStyle);
+        else el.removeAttribute('style');
       }
     );
   }
 
-  // ─── Phase 3 — strip editor chrome ──────────────────────────────────────────
+  // ─── Phase 7 — strip editor chrome ──────────────────────────────────────────
 
+  /**
+   * MUI Rating DOM structure (critical to understand before stripping):
+   *
+   *   <span class="MuiRating-root">
+   *     <span class="MuiRating-label">        ← DO NOT remove — contains the star SVG
+   *       <input type="radio" />              ← REMOVE — form control, visible in export
+   *       <span class="MuiRating-icon">
+   *         <svg>...</svg>                    ← KEEP — this is the actual star icon
+   *       </span>
+   *       "2 Stars"                           ← REMOVE — text node, visible in export
+   *     </span>
+   *   </span>
+   *
+   * Previous bug: we removed the entire MuiRating-label span which took
+   * the star SVG with it. The fix is surgical:
+   *   1. Remove only the <input type="radio"> inside rating labels
+   *   2. Remove only the text nodes inside rating labels (not child elements)
+   *   3. Keep the span itself and its SVG children intact
+   */
   private stripEditorChrome(root: HTMLElement): void {
+    // 1. SVG accessibility text — renders as visible text in isolated HTML
+    root
+      .querySelectorAll(SVG_ACCESSIBILITY_SELECTOR)
+      .forEach(el => el.remove());
+
+    // 2. MUI Rating — surgical strip: remove inputs + bare text nodes only
+    root
+      .querySelectorAll<HTMLElement>('[class*="MuiRating-label"]')
+      .forEach(labelSpan => {
+        // Remove the hidden radio input
+        labelSpan
+          .querySelectorAll('input[type="radio"]')
+          .forEach(input => input.remove());
+
+        // Remove bare text nodes (the "1 Star", "2 Stars" strings) but keep
+        // child elements (the MuiRating-icon span + its SVG) untouched.
+        Array.from(labelSpan.childNodes).forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) node.remove();
+        });
+      });
+
+    // 3. MUI Rating visually-hidden text span (separate from label in some MUI versions)
+    // These are spans with position:absolute + clip that contain "1 Star" etc.
+    root
+      .querySelectorAll<HTMLElement>('[class*="MuiRating-visuallyHidden"]')
+      .forEach(el => el.remove());
+
     this.stripNodeRecursive(root);
   }
 
@@ -369,9 +525,9 @@ export class HTMLGenerator {
     });
   }
 
-  // ─── Phase 4 — HTML shell ────────────────────────────────────────────────────
+  // ─── Phase 9 — HTML shell ────────────────────────────────────────────────────
 
-  private buildHTMLShell(bodyContent: string): string {
+  private buildHTMLShell(bodyContent: string, embeddedStyles: string): string {
     const layoutClass =
       Canvas.layoutMode === 'grid' ? 'grid-layout-active' : 'home';
 
@@ -381,6 +537,9 @@ export class HTMLGenerator {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page Builder</title>
+    <style>
+${embeddedStyles}
+    </style>
     <style>
 ${this.generateCSS()}
     </style>
@@ -398,7 +557,6 @@ ${bodyContent}
   private buildBaseCSS(bgColor: string): string {
     const isGrid = Canvas.layoutMode === 'grid';
 
-    // Shared rules across both layout modes
     const shared = `
 *, *::before, *::after { box-sizing: border-box; }
 body, html {
@@ -414,9 +572,6 @@ body, html {
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 .editable-component { border: none !important; box-shadow: none !important; }`;
 
-    // position:relative is mandatory on #canvas in BOTH modes.
-    // It makes #canvas the containing block for position:absolute children,
-    // matching the coordinate system we used when reading offsetTop/offsetLeft.
     if (isGrid) {
       return `${shared}
 body, html { display: flex; overflow: hidden; }
@@ -545,12 +700,10 @@ table { border-collapse: collapse; }`;
       }
 
       path.unshift(sel);
-
       if (current.parentElement?.id) {
         path.unshift(`#${current.parentElement.id}`);
         break;
       }
-
       current = current.parentElement;
     }
 
