@@ -253,7 +253,7 @@ class n {
         A && t.appendChild(A),
         n && t.appendChild(n));
     }),
-      Q.dispatchDesignChange());
+      E.dispatchDesignChange());
   }
   updateInputValues(e) {
     (document.querySelectorAll('.text-component').forEach(t => {
@@ -266,7 +266,7 @@ class n {
         A && t.appendChild(A),
         n && t.appendChild(n));
     }),
-      Q.dispatchDesignChange());
+      E.dispatchDesignChange());
   }
   updateTextContent(e, t) {
     const A = e.querySelector('.component-controls'),
@@ -284,7 +284,7 @@ class n {
           (r.textContent = `${t.value}`),
       A && e.appendChild(A),
       n && e.appendChild(n),
-      null == Q || Q.dispatchDesignChange());
+      null == E || E.dispatchDesignChange());
   }
   static restore(e) {
     const t = e.closest('.text-component'),
@@ -399,7 +399,7 @@ class r {
             ((s.style.display = 'block'),
               (n.style.display = 'none'),
               (A.style.backgroundColor = 'transparent'),
-              null == Q || Q.dispatchDesignChange());
+              null == E || E.dispatchDesignChange());
           }
         });
       }),
@@ -529,7 +529,7 @@ class o {
         A && t.appendChild(A),
         n && t.appendChild(n));
     }),
-      Q.dispatchDesignChange());
+      E.dispatchDesignChange());
   }
   updateInputValues(e) {
     (document.querySelectorAll('.header-component').forEach(t => {
@@ -542,7 +542,7 @@ class o {
         A && t.appendChild(A),
         n && t.appendChild(n));
     }),
-      Q.dispatchDesignChange());
+      E.dispatchDesignChange());
   }
   updateHeaderContent(e, t) {
     const A = e.querySelector('.component-controls'),
@@ -559,7 +559,7 @@ class o {
           (r.textContent = `${t.value}`),
       A && e.appendChild(A),
       n && e.appendChild(n),
-      null == Q || Q.dispatchDesignChange());
+      null == E || E.dispatchDesignChange());
   }
   static restore(e) {
     const t = e.closest('.header-component'),
@@ -642,14 +642,14 @@ class a {
         (window.removeEventListener('mousemove', this.resize),
           window.removeEventListener('mouseup', this.stopResize),
           (this.currentResizer = null),
-          Q.historyManager.captureState());
+          E.historyManager.captureState());
       }),
       (this.element = document.createElement('div')),
       this.element.classList.add('container-component'),
       (this.resizers = document.createElement('div')),
       this.resizers.classList.add('resizers'),
       this.element.appendChild(this.resizers),
-      'absolute' === Q.layoutMode && this.addResizeHandles(),
+      'absolute' === E.layoutMode && this.addResizeHandles(),
       this.addStyles(),
       this.initializeEventListeners());
   }
@@ -703,10 +703,10 @@ class a {
         ? void 0
         : t.getData('component-type');
     if (!A) return;
-    const n = Q.createComponent(A);
+    const n = E.createComponent(A);
     if (!n) return;
     const r = this.element.classList[2],
-      s = Q.generateUniqueClass(A, !0, r);
+      s = E.generateUniqueClass(A, !0, r);
     n.classList.add(s);
     const i = document.createElement('span');
     ((i.className = 'component-label'),
@@ -715,15 +715,15 @@ class a {
       (n.id = s),
       (i.style.display = 'none'),
       n.appendChild(i),
-      'absolute' === Q.layoutMode
+      'absolute' === E.layoutMode
         ? ((n.style.position = 'absolute'),
           (n.style.left = `${e.offsetX}px`),
           (n.style.top = `${e.offsetY}px`),
-          Q.addDraggableListeners(n))
-        : 'grid' === Q.layoutMode &&
+          E.addDraggableListeners(n))
+        : 'grid' === E.layoutMode &&
           this.element.classList.add('container-grid-active'),
       this.element.appendChild(n),
-      Q.historyManager.captureState());
+      E.historyManager.captureState());
   }
   showLabel(e, t) {
     e.stopPropagation();
@@ -765,7 +765,7 @@ class a {
     ((n.element = e), (n.resizers = A), n.addResizeHandles(), e.appendChild(A));
   }
   static restoreContainer(e, t) {
-    const A = 'grid' === Q.layoutMode;
+    const A = 'grid' === E.layoutMode;
     if (!1 === t || A) {
       e.querySelectorAll('.resizers').forEach(e => e.remove());
     } else a.restoreResizer(e);
@@ -774,7 +774,7 @@ class a {
     e.querySelectorAll('.editable-component').forEach(e => {
       var s;
       if (!1 !== t)
-        (Q.controlsManager.addControlButtons(e),
+        (E.controlsManager.addControlButtons(e),
           A
             ? (e.classList.remove('component-resizer'),
               e.removeAttribute('draggable'),
@@ -782,7 +782,7 @@ class a {
               (e.style.position = ''),
               (e.style.left = ''),
               (e.style.top = ''))
-            : (Q.addDraggableListeners(e),
+            : (E.addDraggableListeners(e),
               (e.style.position = 'absolute'),
               e.classList.add('component-resizer')),
           e.addEventListener('mouseenter', t => n.showLabel(t, e)),
@@ -842,7 +842,7 @@ class l {
         ? void 0
         : t.getData('component-type');
     if (!A) return;
-    const n = Q.createComponent(A);
+    const n = E.createComponent(A);
     if (!n) return;
     const r = e.target;
     if (r && r.classList.contains('column')) {
@@ -855,7 +855,7 @@ class l {
         (t.className = 'column-label'),
         r.appendChild(t)),
         (t.textContent = e));
-      const s = Q.generateUniqueClass(A, !0, e);
+      const s = E.generateUniqueClass(A, !0, e);
       (n.classList.add(s), (n.id = s));
       let i = n.querySelector('.component-label');
       (i ||
@@ -864,7 +864,7 @@ class l {
         i.setAttribute('contenteditable', 'false'),
         n.appendChild(i)),
         (i.textContent = s),
-        Q.historyManager.captureState());
+        E.historyManager.captureState());
     }
   }
   addStyles(e) {
@@ -879,8 +879,8 @@ class l {
     e.querySelectorAll('.editable-component').forEach(e => {
       var t;
       if (
-        (Q.controlsManager.addControlButtons(e),
-        Q.addDraggableListeners(e),
+        (E.controlsManager.addControlButtons(e),
+        E.addDraggableListeners(e),
         e.classList.contains('image-component'))
       ) {
         const A =
@@ -911,7 +911,7 @@ class d {
     d.tableAttributeConfig = n || [];
     const r = document.createElement('div');
     r.classList.add('table-component');
-    const s = Q.generateUniqueClass('table');
+    const s = E.generateUniqueClass('table');
     ((r.id = s),
       (r.style.minWidth = '250px'),
       (r.style.border = '1px solid #2F3132'),
@@ -1165,7 +1165,7 @@ class d {
           A && t.appendChild(A));
       });
     }),
-      Q.dispatchDesignChange());
+      E.dispatchDesignChange());
   }
   updateInputValues(e) {
     (document.querySelectorAll('.table-component').forEach(t => {
@@ -1180,7 +1180,7 @@ class d {
           (r.textContent = e[A]);
       });
     }),
-      Q.dispatchDesignChange());
+      E.dispatchDesignChange());
   }
   updateCellContent(e, t) {
     (e.setAttribute('data-attribute-key', t.key),
@@ -1195,7 +1195,7 @@ class d {
       : (('Constant' === t.type && n) || ('Input' === t.type && n)) &&
         (n.textContent = `${t.value}`),
       A && e.appendChild(A),
-      null == Q || Q.dispatchDesignChange());
+      null == E || E.dispatchDesignChange());
   }
   setModalComponent(e) {
     this.modalComponent = e;
@@ -1210,7 +1210,7 @@ class d {
         i = this.createTableRow(A, s, t);
       e.appendChild(i);
     }
-    Q.historyManager.captureState();
+    E.historyManager.captureState();
   }
   static getDefaultValuesOfInput() {
     const e = {};
@@ -1585,7 +1585,7 @@ class p {
     ((this.undoStack = []), (this.redoStack = []), (this.canvas = e));
   }
   captureState() {
-    const e = Q.getState();
+    const e = E.getState();
     if (e.length > 0) {
       const t = this.undoStack[this.undoStack.length - 1];
       JSON.stringify(e) !== JSON.stringify(t) &&
@@ -1599,18 +1599,18 @@ class p {
       const e = this.undoStack.pop();
       this.redoStack.push(e);
       const t = this.undoStack[this.undoStack.length - 1];
-      Q.restoreState(t);
+      E.restoreState(t);
     } else if (1 === this.undoStack.length) {
       const e = this.undoStack.pop();
       this.redoStack.push(e);
-      const t = Q.jsonStorage.load();
-      t ? Q.restoreState(t) : Q.restoreState([]);
+      const t = E.jsonStorage.load();
+      t ? E.restoreState(t) : E.restoreState([]);
     } else console.warn('No more actions to undo.');
   }
   redo() {
     if (this.redoStack.length > 0) {
       const e = this.redoStack.pop();
-      (this.undoStack.push(e), Q.restoreState(e));
+      (this.undoStack.push(e), E.restoreState(e));
     } else console.warn('No more actions to redo.');
   }
 }
@@ -1780,10 +1780,10 @@ class y {
   }
   static deleteComponent(e, t) {
     (e.remove(), t.remove());
-    const A = Q.getComponents().filter(t => t !== e);
-    (Q.setComponents(A),
-      Q.historyManager.captureState(),
-      Q.dispatchDesignChange(),
+    const A = E.getComponents().filter(t => t !== e);
+    (E.setComponents(A),
+      E.historyManager.captureState(),
+      E.dispatchDesignChange(),
       this.updateLayersView());
   }
   static getComponentType(e) {
@@ -2051,7 +2051,7 @@ class x {
               (t.style.fontSize = ''),
               (t.style.fontWeight = ''));
           }
-          (Q.dispatchDesignChange(), Q.historyManager.captureState(), h());
+          (E.dispatchDesignChange(), E.historyManager.captureState(), h());
         }
       }),
       c.addEventListener('click', () =>
@@ -2151,7 +2151,7 @@ class x {
             (n
               .querySelector('.delete-rule-btn')
               .addEventListener('click', () => {
-                (this.deleteRule(e, A), l(), Q.dispatchDesignChange());
+                (this.deleteRule(e, A), l(), E.dispatchDesignChange());
               }),
               r.appendChild(n));
           }
@@ -2164,7 +2164,7 @@ class x {
         value: i.value,
         action: a.value,
       };
-      (this.addRule(e, t), l(), Q.dispatchDesignChange());
+      (this.addRule(e, t), l(), E.dispatchDesignChange());
     }),
       l());
   }
@@ -2542,12 +2542,12 @@ class _ {
           (r.seedFormulaValues(t),
           A.seedFormulaValues(t),
           i.seedFormulaValues(t),
-          Q.historyManager.captureState()),
+          E.historyManager.captureState()),
           r.updateInputValues(e),
           A.updateInputValues(e),
           i.updateInputValues(e),
           A.evaluateRowVisibility(e),
-          Q.historyManager.captureState());
+          E.historyManager.captureState());
       }
     });
   }
@@ -2659,7 +2659,7 @@ class _ {
           (A && clearTimeout(A), (A = setTimeout(() => e(...n), t)));
         };
       })(() => {
-        (Q.dispatchDesignChange(), Q.historyManager.captureState());
+        (E.dispatchDesignChange(), E.historyManager.captureState());
       }, 300);
     (null === (t = B.width) ||
       void 0 === t ||
@@ -2836,7 +2836,7 @@ class j {
   }
 }
 var F;
-class Q {
+class E {
   static getComponents() {
     return F.components;
   }
@@ -2857,8 +2857,10 @@ class Q {
       (F.canvasElement = document.getElementById('canvas')),
       F.canvasElement &&
         ('absolute' === this.layoutMode
-          ? F.canvasElement.classList.add('preview-printable')
-          : F.canvasElement.classList.remove('preview-printable')),
+          ? (F.canvasElement.classList.add('preview-printable'),
+            F.canvasElement.classList.remove('grid-layout-active'))
+          : (F.canvasElement.classList.remove('preview-printable'),
+            F.canvasElement.classList.add('grid-layout-active'))),
       (F.sidebarElement = document.getElementById('sidebar')),
       window.addEventListener('table-design-change', () => {
         F.dispatchDesignChange();
@@ -3306,9 +3308,9 @@ class Q {
       }));
   }
 }
-((F = Q),
-  (Q.components = []),
-  (Q.componentFactory = {
+((F = E),
+  (E.components = []),
+  (E.componentFactory = {
     button: () => new i().create(),
     header: () => new o().create(1, 'Header', F.headerAttributeConfig),
     image: () => new r().create(void 0, F.ImageAttributeConfig),
@@ -3321,7 +3323,7 @@ class Q {
     landingpage: () => new f().create(),
     link: () => new h().create(),
   }),
-  (Q.deleteElementHandler = new (class {
+  (E.deleteElementHandler = new (class {
     constructor() {
       ((this.selectedElement = null),
         document.addEventListener('keydown', this.handleKeydown.bind(this)));
@@ -3341,7 +3343,7 @@ class Q {
         this.selectedElement.classList.add('selected'));
     }
   })()));
-class E {
+class Q {
   constructor(e) {
     this.canvas = e;
   }
@@ -3750,13 +3752,13 @@ class H {
       }));
   }
   buildHTMLShell(e, t) {
-    const A = 'grid' === Q.layoutMode ? 'grid-layout-active' : 'home';
+    const A = 'grid' === E.layoutMode ? 'grid-layout-active' : 'home';
     return `<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <title>Page Builder</title>\n    <style>\n${t}\n    </style>\n    <style>\n${this.generateCSS()}\n    </style>\n  </head>\n  <body>\n    <div id="canvas" class="${A}">\n${e}\n    </div>\n  </body>\n</html>`;
   }
   buildBaseCSS(e) {
     const t =
       '\n*, *::before, *::after { box-sizing: border-box; }\nbody, html {\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  height: 100%;\n  box-sizing: border-box;\n}\n::-webkit-scrollbar { width: 6px; height: 6px; }\n::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }\n::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }\n::-webkit-scrollbar-thumb:hover { background: #94a3b8; }\n.editable-component { border: none !important; box-shadow: none !important; }';
-    return 'grid' === Q.layoutMode
+    return 'grid' === E.layoutMode
       ? `${t}\nbody, html { display: flex; overflow: hidden; }\n#canvas {\n  position: relative;\n  display: block;\n  width: 100%;\n  flex-grow: 1;\n  min-width: 0;\n  background-color: ${e};\n  margin: 0;\n  overflow: auto;\n  box-sizing: border-box;\n}\n.container-grid-active { display: block; }\n.table-component { border-collapse: collapse; box-sizing: border-box; }`
       : `${t}\n#canvas {\n  position: relative;\n  display: block;\n  width: 100%;\n  min-height: 100vh;\n  background-color: ${e};\n  margin: 0;\n  overflow: visible;\n}\ntable { border-collapse: collapse; }`;
   }
@@ -3968,10 +3970,10 @@ class P {
     if (e.ctrlKey || e.metaKey)
       switch (e.key.toLowerCase()) {
         case 'z':
-          (e.preventDefault(), Q.historyManager.undo());
+          (e.preventDefault(), E.historyManager.undo());
           break;
         case 'y':
-          (e.preventDefault(), Q.historyManager.redo());
+          (e.preventDefault(), E.historyManager.redo());
       }
   }
 }
@@ -4376,8 +4378,8 @@ var ue = 10,
   _e = 30,
   je = 32,
   Fe = 33,
-  Qe = 34,
-  Ee = 35,
+  Ee = 34,
+  Qe = 35,
   Ue = 37,
   Le = 38,
   Se = 39,
@@ -4451,7 +4453,7 @@ var ue = 10,
   De = [ue, 8],
   Re = [Ce, be],
   Ke = Oe.concat(De),
-  Ve = [Le, Se, Ie, Qe, Ee],
+  Ve = [Le, Se, Ie, Ee, Qe],
   ze = [he, de],
   qe = function (e, t, A, n) {
     var r = n[A];
@@ -4548,9 +4550,9 @@ var ue = 10,
         u--;
       }
     if (
-      (Le === a && -1 !== [Le, Se, Qe, Ee].indexOf(c)) ||
-      (-1 !== [Se, Qe].indexOf(a) && -1 !== [Se, Ie].indexOf(c)) ||
-      (-1 !== [Ie, Ee].indexOf(a) && c === Ie)
+      (Le === a && -1 !== [Le, Se, Ee, Qe].indexOf(c)) ||
+      (-1 !== [Se, Ee].indexOf(a) && -1 !== [Se, Ie].indexOf(c)) ||
+      (-1 !== [Ie, Qe].indexOf(a) && c === Ie)
     )
       return He;
     if (
@@ -4724,8 +4726,8 @@ var ue = 10,
   _t = { type: 26 },
   jt = { type: 27 },
   Ft = { type: 28 },
-  Qt = { type: 29 },
-  Et = { type: 31 },
+  Et = { type: 29 },
+  Qt = { type: 31 },
   Ut = { type: 32 },
   Lt = (function () {
     function e() {
@@ -4823,7 +4825,7 @@ var ue = 10,
               return (this.reconsumeCodePoint(e), this.consumeIdentLikeToken());
             break;
           case 93:
-            return Qt;
+            return Et;
           case 61:
             if (61 === this.peekCodePoint(0))
               return (this.consumeCodePoint(), ft);
@@ -4857,7 +4859,7 @@ var ue = 10,
             return Ut;
         }
         return At(e)
-          ? (this.consumeWhiteSpace(), Et)
+          ? (this.consumeWhiteSpace(), Qt)
           : et(e)
             ? (this.reconsumeCodePoint(e), this.consumeNumericToken())
             : nt(e)
@@ -5688,8 +5690,8 @@ var lA = function (e, t) {
   _A = 'circle',
   jA = 'ellipse',
   FA = 'cover',
-  QA = 'contain',
-  EA = function (e, t) {
+  EA = 'contain',
+  QA = function (e, t) {
     var A = 0,
       n = 3,
       r = [],
@@ -5722,7 +5724,7 @@ var lA = function (e, t) {
                       return ((A = 0), !1);
                     case jA:
                       return ((A = 1), !1);
-                    case QA:
+                    case EA:
                     case BA:
                       return ((n = 0), !1);
                     case bA:
@@ -5820,7 +5822,7 @@ var LA,
                   case FA:
                   case bA:
                     return ((n = 1), !1);
-                  case QA:
+                  case EA:
                   case CA:
                     return ((n = 2), !1);
                   case xA:
@@ -5839,10 +5841,10 @@ var LA,
         { size: n, shape: A, stops: r, position: s, type: 2 }
       );
     },
-    '-moz-radial-gradient': EA,
-    '-ms-radial-gradient': EA,
-    '-o-radial-gradient': EA,
-    '-webkit-radial-gradient': EA,
+    '-moz-radial-gradient': QA,
+    '-ms-radial-gradient': QA,
+    '-o-radial-gradient': QA,
+    '-webkit-radial-gradient': QA,
     '-webkit-gradient': function (e, t) {
       var A = tA(180),
         n = [],
@@ -6377,7 +6379,7 @@ var fn,
       return 'break-word' === t ? 'break-word' : 'normal';
     },
   },
-  Qn = function (e) {
+  En = function (e) {
     return {
       name: 'padding-' + e,
       initialValue: '0',
@@ -6386,10 +6388,10 @@ var fn,
       format: 'length-percentage',
     };
   },
-  En = Qn('top'),
-  Un = Qn('right'),
-  Ln = Qn('bottom'),
-  Sn = Qn('left'),
+  Qn = En('top'),
+  Un = En('right'),
+  Ln = En('bottom'),
+  Sn = En('left'),
   In = {
     name: 'text-align',
     initialValue: 'left',
@@ -6937,7 +6939,7 @@ for (
         ((this.overflowX = r[0]),
           (this.overflowY = r[r.length > 1 ? 1 : 0]),
           (this.overflowWrap = fr(e, Fn, t.overflowWrap)),
-          (this.paddingTop = fr(e, En, t.paddingTop)),
+          (this.paddingTop = fr(e, Qn, t.paddingTop)),
           (this.paddingRight = fr(e, Un, t.paddingRight)),
           (this.paddingBottom = fr(e, Ln, t.paddingBottom)),
           (this.paddingLeft = fr(e, Sn, t.paddingLeft)),
@@ -7135,8 +7137,8 @@ for (
 var _r,
   jr = 8,
   Fr = 9,
-  Qr = 11,
-  Er = 12,
+  Er = 11,
+  Qr = 12,
   Ur = function () {
     for (var e = [], t = 0; t < arguments.length; t++) e[t] = arguments[t];
     if (String.fromCodePoint) return String.fromCodePoint.apply(String, e);
@@ -7224,9 +7226,9 @@ var _r,
     if (2 === s && 3 === i) return Sr;
     if (2 === s || 3 === s || 4 === s) return '÷';
     if (2 === i || 3 === i || 4 === i) return '÷';
-    if (s === jr && -1 !== [jr, Fr, Qr, Er].indexOf(i)) return Sr;
-    if (!((s !== Qr && s !== Fr) || (i !== Fr && 10 !== i))) return Sr;
-    if ((s === Er || 10 === s) && 10 === i) return Sr;
+    if (s === jr && -1 !== [jr, Fr, Er, Qr].indexOf(i)) return Sr;
+    if (!((s !== Er && s !== Fr) || (i !== Fr && 10 !== i))) return Sr;
+    if ((s === Qr || 10 === s) && 10 === i) return Sr;
     if (13 === i || 5 === i) return Sr;
     if (7 === i) return Sr;
     if (1 === s) return Sr;
@@ -7821,7 +7823,7 @@ var _r,
         }
   },
   fs = function (e, t) {
-    return Es(t)
+    return Qs(t)
       ? new Jr(e, t)
       : Fs(t)
         ? new Zr(e, t)
@@ -7886,10 +7888,10 @@ var _r,
   Fs = function (e) {
     return 'CANVAS' === e.tagName;
   },
-  Qs = function (e) {
+  Es = function (e) {
     return 'VIDEO' === e.tagName;
   },
-  Es = function (e) {
+  Qs = function (e) {
     return 'IMG' === e.tagName;
   },
   Us = function (e) {
@@ -8389,12 +8391,12 @@ var _r,
       }),
       (e.prototype.createElementClone = function (e) {
         if ((pr(e, 2), Fs(e))) return this.createCanvasClone(e);
-        if (Qs(e)) return this.createVideoClone(e);
+        if (Es(e)) return this.createVideoClone(e);
         if (Ls(e)) return this.createStyleClone(e);
         var t = e.cloneNode(!1);
         return (
-          Es(t) &&
-            (Es(e) &&
+          Qs(t) &&
+            (Qs(e) &&
               e.currentSrc &&
               e.currentSrc !== e.src &&
               ((t.src = e.currentSrc), (t.srcset = '')),
@@ -8529,7 +8531,7 @@ var _r,
           var o = this.counters.parse(new hr(this.context, r)),
             a = this.resolvePseudoContent(e, n, s, _r.BEFORE);
           (Ns(e) && (t = !0),
-            Qs(e) || this.cloneChildNodes(e, n, t),
+            Es(e) || this.cloneChildNodes(e, n, t),
             a && n.insertBefore(a, n.firstChild));
           var l = this.resolvePseudoContent(e, n, i, _r.AFTER);
           return (
@@ -8960,7 +8962,7 @@ var $s,
   Fi = function (e) {
     return 1 === e.type;
   },
-  Qi = function (e) {
+  Ei = function (e) {
     var t = e.styles,
       A = e.bounds,
       n = Wt(t.borderTopLeftRadius, A.width, A.height),
@@ -9001,26 +9003,26 @@ var $s,
       _ = Xt(t.paddingTop, e.bounds.width),
       j = Xt(t.paddingRight, e.bounds.width),
       F = Xt(t.paddingBottom, e.bounds.width),
-      Q = Xt(t.paddingLeft, e.bounds.width);
+      E = Xt(t.paddingLeft, e.bounds.width);
     ((this.topLeftBorderDoubleOuterBox =
       r > 0 || s > 0
-        ? Ei(A.left + x / 3, A.top + B / 3, r - x / 3, s - B / 3, $s.TOP_LEFT)
+        ? Qi(A.left + x / 3, A.top + B / 3, r - x / 3, s - B / 3, $s.TOP_LEFT)
         : new xi(A.left + x / 3, A.top + B / 3)),
       (this.topRightBorderDoubleOuterBox =
         r > 0 || s > 0
-          ? Ei(A.left + m, A.top + B / 3, o - b / 3, a - B / 3, $s.TOP_RIGHT)
+          ? Qi(A.left + m, A.top + B / 3, o - b / 3, a - B / 3, $s.TOP_RIGHT)
           : new xi(A.left + A.width - b / 3, A.top + B / 3)),
       (this.bottomRightBorderDoubleOuterBox =
         c > 0 || u > 0
-          ? Ei(A.left + y, A.top + w, c - b / 3, u - C / 3, $s.BOTTOM_RIGHT)
+          ? Qi(A.left + y, A.top + w, c - b / 3, u - C / 3, $s.BOTTOM_RIGHT)
           : new xi(A.left + A.width - b / 3, A.top + A.height - C / 3)),
       (this.bottomLeftBorderDoubleOuterBox =
         h > 0 || f > 0
-          ? Ei(A.left + x / 3, A.top + v, h - x / 3, f - C / 3, $s.BOTTOM_LEFT)
+          ? Qi(A.left + x / 3, A.top + v, h - x / 3, f - C / 3, $s.BOTTOM_LEFT)
           : new xi(A.left + x / 3, A.top + A.height - C / 3)),
       (this.topLeftBorderDoubleInnerBox =
         r > 0 || s > 0
-          ? Ei(
+          ? Qi(
               A.left + (2 * x) / 3,
               A.top + (2 * B) / 3,
               r - (2 * x) / 3,
@@ -9030,7 +9032,7 @@ var $s,
           : new xi(A.left + (2 * x) / 3, A.top + (2 * B) / 3)),
       (this.topRightBorderDoubleInnerBox =
         r > 0 || s > 0
-          ? Ei(
+          ? Qi(
               A.left + m,
               A.top + (2 * B) / 3,
               o - (2 * b) / 3,
@@ -9040,7 +9042,7 @@ var $s,
           : new xi(A.left + A.width - (2 * b) / 3, A.top + (2 * B) / 3)),
       (this.bottomRightBorderDoubleInnerBox =
         c > 0 || u > 0
-          ? Ei(
+          ? Qi(
               A.left + y,
               A.top + w,
               c - (2 * b) / 3,
@@ -9053,7 +9055,7 @@ var $s,
             )),
       (this.bottomLeftBorderDoubleInnerBox =
         h > 0 || f > 0
-          ? Ei(
+          ? Qi(
               A.left + (2 * x) / 3,
               A.top + v,
               h - (2 * x) / 3,
@@ -9063,39 +9065,39 @@ var $s,
           : new xi(A.left + (2 * x) / 3, A.top + A.height - (2 * C) / 3)),
       (this.topLeftBorderStroke =
         r > 0 || s > 0
-          ? Ei(A.left + x / 2, A.top + B / 2, r - x / 2, s - B / 2, $s.TOP_LEFT)
+          ? Qi(A.left + x / 2, A.top + B / 2, r - x / 2, s - B / 2, $s.TOP_LEFT)
           : new xi(A.left + x / 2, A.top + B / 2)),
       (this.topRightBorderStroke =
         r > 0 || s > 0
-          ? Ei(A.left + m, A.top + B / 2, o - b / 2, a - B / 2, $s.TOP_RIGHT)
+          ? Qi(A.left + m, A.top + B / 2, o - b / 2, a - B / 2, $s.TOP_RIGHT)
           : new xi(A.left + A.width - b / 2, A.top + B / 2)),
       (this.bottomRightBorderStroke =
         c > 0 || u > 0
-          ? Ei(A.left + y, A.top + w, c - b / 2, u - C / 2, $s.BOTTOM_RIGHT)
+          ? Qi(A.left + y, A.top + w, c - b / 2, u - C / 2, $s.BOTTOM_RIGHT)
           : new xi(A.left + A.width - b / 2, A.top + A.height - C / 2)),
       (this.bottomLeftBorderStroke =
         h > 0 || f > 0
-          ? Ei(A.left + x / 2, A.top + v, h - x / 2, f - C / 2, $s.BOTTOM_LEFT)
+          ? Qi(A.left + x / 2, A.top + v, h - x / 2, f - C / 2, $s.BOTTOM_LEFT)
           : new xi(A.left + x / 2, A.top + A.height - C / 2)),
       (this.topLeftBorderBox =
         r > 0 || s > 0
-          ? Ei(A.left, A.top, r, s, $s.TOP_LEFT)
+          ? Qi(A.left, A.top, r, s, $s.TOP_LEFT)
           : new xi(A.left, A.top)),
       (this.topRightBorderBox =
         o > 0 || a > 0
-          ? Ei(A.left + m, A.top, o, a, $s.TOP_RIGHT)
+          ? Qi(A.left + m, A.top, o, a, $s.TOP_RIGHT)
           : new xi(A.left + A.width, A.top)),
       (this.bottomRightBorderBox =
         c > 0 || u > 0
-          ? Ei(A.left + y, A.top + w, c, u, $s.BOTTOM_RIGHT)
+          ? Qi(A.left + y, A.top + w, c, u, $s.BOTTOM_RIGHT)
           : new xi(A.left + A.width, A.top + A.height)),
       (this.bottomLeftBorderBox =
         h > 0 || f > 0
-          ? Ei(A.left, A.top + v, h, f, $s.BOTTOM_LEFT)
+          ? Qi(A.left, A.top + v, h, f, $s.BOTTOM_LEFT)
           : new xi(A.left, A.top + A.height)),
       (this.topLeftPaddingBox =
         r > 0 || s > 0
-          ? Ei(
+          ? Qi(
               A.left + x,
               A.top + B,
               Math.max(0, r - x),
@@ -9105,7 +9107,7 @@ var $s,
           : new xi(A.left + x, A.top + B)),
       (this.topRightPaddingBox =
         o > 0 || a > 0
-          ? Ei(
+          ? Qi(
               A.left + Math.min(m, A.width - b),
               A.top + B,
               m > A.width + b ? 0 : Math.max(0, o - b),
@@ -9115,7 +9117,7 @@ var $s,
           : new xi(A.left + A.width - b, A.top + B)),
       (this.bottomRightPaddingBox =
         c > 0 || u > 0
-          ? Ei(
+          ? Qi(
               A.left + Math.min(y, A.width - x),
               A.top + Math.min(w, A.height - C),
               Math.max(0, c - b),
@@ -9125,7 +9127,7 @@ var $s,
           : new xi(A.left + A.width - b, A.top + A.height - C)),
       (this.bottomLeftPaddingBox =
         h > 0 || f > 0
-          ? Ei(
+          ? Qi(
               A.left + x,
               A.top + Math.min(v, A.height - C),
               Math.max(0, h - x),
@@ -9135,28 +9137,28 @@ var $s,
           : new xi(A.left + x, A.top + A.height - C)),
       (this.topLeftContentBox =
         r > 0 || s > 0
-          ? Ei(
-              A.left + x + Q,
+          ? Qi(
+              A.left + x + E,
               A.top + B + _,
-              Math.max(0, r - (x + Q)),
+              Math.max(0, r - (x + E)),
               Math.max(0, s - (B + _)),
               $s.TOP_LEFT
             )
-          : new xi(A.left + x + Q, A.top + B + _)),
+          : new xi(A.left + x + E, A.top + B + _)),
       (this.topRightContentBox =
         o > 0 || a > 0
-          ? Ei(
-              A.left + Math.min(m, A.width + x + Q),
+          ? Qi(
+              A.left + Math.min(m, A.width + x + E),
               A.top + B + _,
-              m > A.width + x + Q ? 0 : o - x + Q,
+              m > A.width + x + E ? 0 : o - x + E,
               a - (B + _),
               $s.TOP_RIGHT
             )
           : new xi(A.left + A.width - (b + j), A.top + B + _)),
       (this.bottomRightContentBox =
         c > 0 || u > 0
-          ? Ei(
-              A.left + Math.min(y, A.width - (x + Q)),
+          ? Qi(
+              A.left + Math.min(y, A.width - (x + E)),
               A.top + Math.min(w, A.height + B + _),
               Math.max(0, c - (b + j)),
               u - (C + F),
@@ -9165,14 +9167,14 @@ var $s,
           : new xi(A.left + A.width - (b + j), A.top + A.height - (C + F))),
       (this.bottomLeftContentBox =
         h > 0 || f > 0
-          ? Ei(
-              A.left + x + Q,
+          ? Qi(
+              A.left + x + E,
               A.top + v,
-              Math.max(0, h - (x + Q)),
+              Math.max(0, h - (x + E)),
               f - (C + F),
               $s.BOTTOM_LEFT
             )
-          : new xi(A.left + x + Q, A.top + A.height - (C + F))));
+          : new xi(A.left + x + E, A.top + A.height - (C + F))));
   };
 !(function (e) {
   ((e[(e.TOP_LEFT = 0)] = 'TOP_LEFT'),
@@ -9180,7 +9182,7 @@ var $s,
     (e[(e.BOTTOM_RIGHT = 2)] = 'BOTTOM_RIGHT'),
     (e[(e.BOTTOM_LEFT = 3)] = 'BOTTOM_LEFT'));
 })($s || ($s = {}));
-var Ei = function (e, t, A, n, r) {
+var Qi = function (e, t, A, n, r) {
     var s = ((Math.sqrt(2) - 1) / 3) * 4,
       i = A * s,
       o = n * s,
@@ -9274,7 +9276,7 @@ var Ei = function (e, t, A, n, r) {
         ((this.container = e),
         (this.parent = t),
         (this.effects = []),
-        (this.curves = new Qi(this.container)),
+        (this.curves = new Ei(this.container)),
         this.container.styles.opacity < 1 &&
           this.effects.push(new ki(this.container.styles.opacity)),
         null !== this.container.styles.transform)
@@ -10299,8 +10301,8 @@ var Ei = function (e, t, A, n, r) {
                       _,
                       j,
                       F,
-                      Q,
                       E,
+                      Q,
                       U,
                       L,
                       S,
@@ -10480,27 +10482,27 @@ var Ei = function (e, t, A, n, r) {
                                   [s, i]
                                 );
                               })(A, _, j, b, C)),
-                              (Q = F[0]),
-                              (E = F[1]),
-                              Q > 0 &&
-                                E > 0 &&
+                              (E = F[0]),
+                              (Q = F[1]),
+                              E > 0 &&
+                                Q > 0 &&
                                 ((U = n.ctx.createRadialGradient(
                                   v + _,
                                   B + j,
                                   0,
                                   v + _,
                                   B + j,
-                                  Q
+                                  E
                                 )),
-                                gA(A.stops, 2 * Q).forEach(function (e) {
+                                gA(A.stops, 2 * E).forEach(function (e) {
                                   return U.addColorStop(e.stop, rA(e.color));
                                 }),
                                 n.path(y),
                                 (n.ctx.fillStyle = U),
-                                Q !== E
+                                E !== Q
                                   ? ((L = e.bounds.left + 0.5 * e.bounds.width),
                                     (S = e.bounds.top + 0.5 * e.bounds.height),
-                                    (k = 1 / (I = E / Q)),
+                                    (k = 1 / (I = Q / E)),
                                     n.ctx.save(),
                                     n.ctx.translate(L, S),
                                     n.ctx.transform(1, 0, 0, I, 0, 0),
@@ -11129,8 +11131,8 @@ var uo,
         _,
         j,
         F,
-        Q,
         E,
+        Q,
         U,
         L,
         S,
@@ -11174,11 +11176,11 @@ var uo,
                     ? F
                     : n.innerWidth,
                 windowHeight:
-                  null !== (Q = t.windowHeight) && void 0 !== Q
-                    ? Q
+                  null !== (E = t.windowHeight) && void 0 !== E
+                    ? E
                     : n.innerHeight,
                 scrollX:
-                  null !== (E = t.scrollX) && void 0 !== E ? E : n.pageXOffset,
+                  null !== (Q = t.scrollX) && void 0 !== Q ? Q : n.pageXOffset,
                 scrollY:
                   null !== (U = t.scrollY) && void 0 !== U ? U : n.pageYOffset,
               }),
@@ -11771,7 +11773,7 @@ var po,
                         return he;
                       },
                       GradientElement: function () {
-                        return Qe;
+                        return Ee;
                       },
                       ImageElement: function () {
                         return Ve;
@@ -11780,7 +11782,7 @@ var po,
                         return Be;
                       },
                       LinearGradientElement: function () {
-                        return Ee;
+                        return Qe;
                       },
                       MarkerElement: function () {
                         return _e;
@@ -11936,13 +11938,13 @@ var po,
                         return d;
                       },
                       vectorMagnitude: function () {
-                        return Q;
+                        return E;
                       },
                       vectorsAngle: function () {
                         return U;
                       },
                       vectorsRatio: function () {
-                        return E;
+                        return Q;
                       },
                     }),
                     A(
@@ -12110,15 +12112,15 @@ var po,
                     );
                   }
                   var F = 1e-8;
-                  function Q(e) {
+                  function E(e) {
                     return Math.sqrt(Math.pow(e[0], 2) + Math.pow(e[1], 2));
                   }
-                  function E(e, t) {
-                    return (e[0] * t[0] + e[1] * t[1]) / (Q(e) * Q(t));
+                  function Q(e, t) {
+                    return (e[0] * t[0] + e[1] * t[1]) / (E(e) * E(t));
                   }
                   function U(e, t) {
                     return (
-                      (e[0] * t[1] < e[1] * t[0] ? -1 : 1) * Math.acos(E(e, t))
+                      (e[0] * t[1] < e[1] * t[0] ? -1 : 1) * Math.acos(Q(e, t))
                     );
                   }
                   function L(e) {
@@ -12617,13 +12619,13 @@ var po,
                       ('meet' === v && ((_ *= C), (j *= C)),
                         'slice' === v && ((_ *= x), (j *= x)));
                       var F = new P(t, 'refX', u),
-                        Q = new P(t, 'refY', d),
-                        E = F.hasValue() && Q.hasValue();
+                        E = new P(t, 'refY', d),
+                        Q = F.hasValue() && E.hasValue();
                       if (
-                        (E &&
+                        (Q &&
                           A.translate(
                             -C * F.getPixels('x'),
-                            -C * Q.getPixels('y')
+                            -C * E.getPixels('y')
                           ),
                         h)
                       ) {
@@ -12637,7 +12639,7 @@ var po,
                           A.closePath(),
                           A.clip());
                       }
-                      if (!E) {
+                      if (!Q) {
                         var S = 'meet' === v && C === b,
                           I = 'slice' === v && x === b,
                           k = 'meet' === v && C === B,
@@ -13744,23 +13746,23 @@ var po,
                           x = this.getStyle('font-variant'),
                           _ = this.getStyle('font-weight'),
                           j = this.getStyle('font-size'),
-                          Q = this.getStyle('font-family'),
-                          E = new ae(
+                          E = this.getStyle('font-family'),
+                          Q = new ae(
                             C.getString(),
                             x.getString(),
                             _.getString(),
                             j.hasValue()
                               ? ''.concat(j.getPixels(!0), 'px')
                               : '',
-                            Q.getString(),
+                            E.getString(),
                             ae.parse(b.getString(), e.font)
                           );
-                        (C.setValue(E.fontStyle),
-                          x.setValue(E.fontVariant),
-                          _.setValue(E.fontWeight),
-                          j.setValue(E.fontSize),
-                          Q.setValue(E.fontFamily),
-                          (e.font = E.toString()),
+                        (C.setValue(Q.fontStyle),
+                          x.setValue(Q.fontVariant),
+                          _.setValue(Q.fontWeight),
+                          j.setValue(Q.fontSize),
+                          E.setValue(Q.fontFamily),
+                          (e.font = Q.toString()),
                           j.isPixels() &&
                             ((this.document.emSize = j.getPixels()),
                             (this.modifiedEmSizeStack = !0)));
@@ -14064,8 +14066,8 @@ var po,
                         m = [(-c.x - h.x) / n, (-c.y - h.y) / r],
                         w = U(g, m);
                       return (
-                        E(g, m) <= -1 && (w = Math.PI),
-                        E(g, m) >= 1 && (w = 0),
+                        Q(g, m) <= -1 && (w = Math.PI),
+                        Q(g, m) >= 1 && (w = 0),
                         {
                           currentPoint: l,
                           rX: n,
@@ -14959,7 +14961,7 @@ var po,
                       );
                     }
                   }
-                  class Qe extends Ae {
+                  class Ee extends Ae {
                     constructor(e, t, A) {
                       (super(e, t, A),
                         (this.attributesToInherit = ['gradientUnits']),
@@ -15040,7 +15042,7 @@ var po,
                         : t;
                     }
                   }
-                  class Ee extends Qe {
+                  class Qe extends Ee {
                     constructor(e, t, A) {
                       (super(e, t, A),
                         (this.type = 'linearGradient'),
@@ -15075,7 +15077,7 @@ var po,
                         : e.createLinearGradient(r, s, i, o);
                     }
                   }
-                  class Ue extends Qe {
+                  class Ue extends Ee {
                     constructor(e, t, A) {
                       (super(e, t, A),
                         (this.type = 'radialGradient'),
@@ -16628,7 +16630,7 @@ var po,
                     pattern: xe,
                     marker: _e,
                     defs: je,
-                    linearGradient: Ee,
+                    linearGradient: Qe,
                     radialGradient: Ue,
                     stop: Le,
                     animate: Se,
@@ -17911,10 +17913,10 @@ var po,
                     else if (i(e, !0)) {
                       var j = new C(),
                         F = j[v](y ? {} : -0, 1) !== j,
-                        Q = f(function () {
+                        E = f(function () {
                           j.has(1);
                         }),
-                        E = p(function (e) {
+                        Q = p(function (e) {
                           new B(e);
                         }),
                         U =
@@ -17923,7 +17925,7 @@ var po,
                             for (var e = new B(), t = 5; t--; ) e[v](t, t);
                             return !e.has(-0);
                           });
-                      (E ||
+                      (Q ||
                         (((C = t(function (e, t) {
                           c(e, b);
                           var A = m(new B(), e, C);
@@ -17933,7 +17935,7 @@ var po,
                           );
                         })).prototype = b),
                         (b.constructor = C)),
-                        (Q || U) && (_('delete'), _('has'), w && _('get')),
+                        (E || U) && (_('delete'), _('has'), w && _('get')),
                         (U || F) && _(v),
                         y && b.clear && delete b.clear);
                     }
@@ -19714,16 +19716,16 @@ var po,
                       _ = !(!A || !A.IS_RECORD),
                       j = !(!A || !A.IS_ITERATOR),
                       F = !(!A || !A.INTERRUPTED),
-                      Q = n(t, C),
-                      E = function (e) {
+                      E = n(t, C),
+                      Q = function (e) {
                         return (g && d(g, 'normal'), new f(!0, e));
                       },
                       U = function (e) {
                         return x
-                          ? (s(e), F ? Q(e[0], e[1], E) : Q(e[0], e[1]))
+                          ? (s(e), F ? E(e[0], e[1], Q) : E(e[0], e[1]))
                           : F
-                            ? Q(e, E)
-                            : Q(e);
+                            ? E(e, Q)
+                            : E(e);
                       };
                     if (_) g = e.iterator;
                     else if (j) g = e;
@@ -20006,8 +20008,8 @@ var po,
                   e.exports = function (e, t, A, i, f, g, j) {
                     a(A, t, i);
                     var F,
-                      Q,
                       E,
+                      Q,
                       U = function (e) {
                         if (e === f && N) return N;
                         if (!v && e && e in I) return I[e];
@@ -20051,19 +20053,19 @@ var po,
                       f)
                     )
                       if (
-                        ((Q = {
+                        ((E = {
                           values: U(C),
                           keys: g ? N : U(b),
                           entries: U(x),
                         }),
                         j)
                       )
-                        for (E in Q) (v || S || !(E in I)) && h(I, E, Q[E]);
-                      else n({ target: t, proto: !0, forced: v || S }, Q);
+                        for (Q in E) (v || S || !(Q in I)) && h(I, Q, E[Q]);
+                      else n({ target: t, proto: !0, forced: v || S }, E);
                     return (
                       (s && !j) || I[B] === N || h(I, B, N, { name: f }),
                       (p[t] = N),
-                      Q
+                      E
                     );
                   };
                 },
@@ -21438,26 +21440,26 @@ var po,
                           t
                         );
                       var F = f.groups,
-                        Q = C && h.sticky,
-                        E = s(a, h),
+                        E = C && h.sticky,
+                        Q = s(a, h),
                         U = h.source,
                         L = 0,
                         S = _;
                       if (
-                        (Q &&
-                          ((E = v(E, 'y', '')),
-                          -1 === y(E, 'g') && (E += 'g'),
+                        (E &&
+                          ((Q = v(Q, 'y', '')),
+                          -1 === y(Q, 'g') && (Q += 'g'),
                           (S = B(_, h.lastIndex)),
                           h.lastIndex > 0 &&
                             (!h.multiline ||
                               (h.multiline &&
                                 '\n' !== w(_, h.lastIndex - 1))) &&
                             ((U = '(?: ' + U + ')'), (S = ' ' + S), L++),
-                          (A = new RegExp('^(?:' + U + ')', E))),
-                        x && (A = new RegExp('^' + U + '$(?!\\s)', E)),
+                          (A = new RegExp('^(?:' + U + ')', Q))),
+                        x && (A = new RegExp('^' + U + '$(?!\\s)', Q)),
                         b && (n = h.lastIndex),
-                        (r = s(g, Q ? A : h, S)),
-                        Q
+                        (r = s(g, E ? A : h, S)),
+                        E
                           ? r
                             ? ((r.input = B(r.input, L)),
                               (r[0] = B(r[0], L)),
@@ -22513,11 +22515,11 @@ var po,
                     _ = o.String,
                     j = 0,
                     F = {},
-                    Q = 'onreadystatechange';
+                    E = 'onreadystatechange';
                   d(function () {
                     n = o.location;
                   });
-                  var E = function (e) {
+                  var Q = function (e) {
                       if (u(F, e)) {
                         var t = F[e];
                         (delete F[e], t());
@@ -22525,11 +22527,11 @@ var po,
                     },
                     U = function (e) {
                       return function () {
-                        E(e);
+                        Q(e);
                       };
                     },
                     L = function (e) {
-                      E(e.data);
+                      Q(e.data);
                     },
                     S = function (e) {
                       o.postMessage(_(e), n.protocol + '//' + n.host);
@@ -22570,11 +22572,11 @@ var po,
                               !d(S)
                             ? ((r = S), o.addEventListener('message', L, !1))
                             : (r =
-                                Q in p('script')
+                                E in p('script')
                                   ? function (e) {
-                                      h.appendChild(p('script'))[Q] =
+                                      h.appendChild(p('script'))[E] =
                                         function () {
-                                          (h.removeChild(this), E(e));
+                                          (h.removeChild(this), Q(e));
                                         };
                                     }
                                   : function (e) {
@@ -23722,8 +23724,8 @@ var po,
                     _ = o(''.replace),
                     j = o(''.slice),
                     F = o([].push),
-                    Q = o((1.1).toString),
-                    E = /[\uD800-\uDFFF]/g,
+                    E = o((1.1).toString),
+                    Q = /[\uD800-\uDFFF]/g,
                     U = /^[\uD800-\uDBFF]$/,
                     L = /^[\uDC00-\uDFFF]$/,
                     S = m(),
@@ -23762,7 +23764,7 @@ var po,
                       var n = C(A, t - 1),
                         r = C(A, t + 1);
                       return (b(U, e) && !b(L, r)) || (b(L, e) && !b(U, n))
-                        ? '\\u' + Q(x(e, 0), 16)
+                        ? '\\u' + E(x(e, 0), 16)
                         : e;
                     },
                     P = function (e) {
@@ -23809,7 +23811,7 @@ var po,
                               A
                             );
                           if ('string' != typeof s) return s;
-                          if ((N && (s = _(s, E, T)), y)) return s;
+                          if ((N && (s = _(s, Q, T)), y)) return s;
                           for (var o = '', a = s.length, l = 0; l < a; l++) {
                             var d = C(s, l);
                             if ('"' === d) {
@@ -23894,7 +23896,7 @@ var po,
                     _ = i.TypeError,
                     j = a(''.slice),
                     F = a(''.charCodeAt),
-                    Q = function (e) {
+                    E = function (e) {
                       var t,
                         A,
                         n,
@@ -23930,7 +23932,7 @@ var po,
                         }
                       return +l;
                     },
-                    E = l(B, !b(' 0o1') || !b('0b1') || b('+0x1')),
+                    Q = l(B, !b(' 0o1') || !b('0b1') || b('+0x1')),
                     U = function (e) {
                       var t,
                         A =
@@ -23939,7 +23941,7 @@ var po,
                             : b(
                                 (function (e) {
                                   var t = f(e, 'number');
-                                  return 'bigint' == typeof t ? t : Q(t);
+                                  return 'bigint' == typeof t ? t : E(t);
                                 })(e)
                               );
                       return d(x, (t = this)) &&
@@ -23950,9 +23952,9 @@ var po,
                         : A;
                     };
                   ((U.prototype = x),
-                    E && !r && (x.constructor = U),
+                    Q && !r && (x.constructor = U),
                     n(
-                      { global: !0, constructor: !0, wrap: !0, forced: E },
+                      { global: !0, constructor: !0, wrap: !0, forced: Q },
                       { Number: U }
                     ));
                   var L = function (e, t) {
@@ -23969,7 +23971,7 @@ var po,
                     )
                       c(t, (A = n[r])) && !c(e, A) && w(e, A, m(t, A));
                   };
-                  (r && C && L(o[B], C), (E || r) && L(o[B], b));
+                  (r && C && L(o[B], C), (Q || r) && L(o[B], b));
                 },
               './node_modules/core-js/modules/es.object.assign.js':
                 /*!**********************************************************!*\
@@ -24269,23 +24271,23 @@ var po,
                     F = A(
                       /*! ../internals/internal-state */ './node_modules/core-js/internals/internal-state.js'
                     ),
-                    Q = A(
+                    E = A(
                       /*! ../internals/promise-native-constructor */ './node_modules/core-js/internals/promise-native-constructor.js'
                     ),
-                    E = A(
+                    Q = A(
                       /*! ../internals/promise-constructor-detection */ './node_modules/core-js/internals/promise-constructor-detection.js'
                     ),
                     U = A(
                       /*! ../internals/new-promise-capability */ './node_modules/core-js/internals/new-promise-capability.js'
                     ),
                     L = 'Promise',
-                    S = E.CONSTRUCTOR,
-                    I = E.REJECTION_EVENT,
-                    k = E.SUBCLASSING,
+                    S = Q.CONSTRUCTOR,
+                    I = Q.REJECTION_EVENT,
+                    k = Q.SUBCLASSING,
                     N = F.getterFor(L),
                     H = F.set,
-                    T = Q && Q.prototype,
-                    P = Q,
+                    T = E && E.prototype,
+                    P = E,
                     M = T,
                     O = c.TypeError,
                     D = c.document,
@@ -24458,7 +24460,7 @@ var po,
                       function (e) {
                         return e === P || e === s ? new r(e) : V(e);
                       }),
-                    !a && w(Q) && T !== Object.prototype)
+                    !a && w(E) && T !== Object.prototype)
                   ) {
                     ((i = T.then),
                       k ||
@@ -25090,12 +25092,12 @@ var po,
                     F = function (e) {
                       return void 0 === e ? e : String(e);
                     },
-                    Q = '$0' === 'a'.replace(/./, '$0'),
-                    E = !!/./[v] && '' === /./[v]('a', '$0');
+                    E = '$0' === 'a'.replace(/./, '$0'),
+                    Q = !!/./[v] && '' === /./[v]('a', '$0');
                   i(
                     'replace',
                     function (e, t, A) {
-                      var s = E ? '$' : '$0';
+                      var s = Q ? '$' : '$0';
                       return [
                         function (e, A) {
                           var n = f(this),
@@ -25117,26 +25119,26 @@ var po,
                           f || (r = h(r));
                           var g,
                             v = h(w(i)),
-                            Q = -1 !== _(v, 'g');
-                          Q && ((g = -1 !== _(v, 'u')), (i.lastIndex = 0));
+                            E = -1 !== _(v, 'g');
+                          E && ((g = -1 !== _(v, 'u')), (i.lastIndex = 0));
                           for (
-                            var E, U = [];
-                            null !== (E = y(i, o)) && (x(U, E), Q);
+                            var Q, U = [];
+                            null !== (Q = y(i, o)) && (x(U, Q), E);
                           )
-                            '' === h(E[0]) &&
+                            '' === h(Q[0]) &&
                               (i.lastIndex = p(o, d(i.lastIndex), g));
                           for (var L = '', S = 0, I = 0; I < U.length; I++) {
                             for (
                               var k,
-                                N = h((E = U[I])[0]),
-                                H = B(b(u(E.index), o.length), 0),
+                                N = h((Q = U[I])[0]),
+                                H = B(b(u(Q.index), o.length), 0),
                                 T = [],
                                 P = 1;
-                              P < E.length;
+                              P < Q.length;
                               P++
                             )
-                              x(T, F(E[P]));
-                            var M = E.groups;
+                              x(T, F(Q[P]));
+                            var M = Q.groups;
                             if (f) {
                               var O = C([N], T, H, o);
                               (void 0 !== M && x(O, M),
@@ -25159,8 +25161,8 @@ var po,
                         '7' !== ''.replace(e, '$<a>')
                       );
                     }) ||
-                      !Q ||
-                      E
+                      !E ||
+                      Q
                   );
                 },
               './node_modules/core-js/modules/es.string.split.js':
@@ -25271,9 +25273,9 @@ var po,
                           for (var x = 0, _ = 0, j = []; _ < o.length; ) {
                             B.lastIndex = m ? 0 : _;
                             var F,
-                              Q = f(B, m ? v(o, _) : o);
+                              E = f(B, m ? v(o, _) : o);
                             if (
-                              null === Q ||
+                              null === E ||
                               (F = w(
                                 u(B.lastIndex + (m ? _ : 0)),
                                 o.length
@@ -25282,8 +25284,8 @@ var po,
                               _ = c(o, _, p);
                             else {
                               if ((y(j, v(o, x, _)), j.length === C)) return j;
-                              for (var E = 1; E <= Q.length - 1; E++)
-                                if ((y(j, Q[E]), j.length === C)) return j;
+                              for (var Q = 1; Q <= E.length - 1; Q++)
+                                if ((y(j, E[Q]), j.length === C)) return j;
                               _ = x = F;
                             }
                           }
@@ -25474,10 +25476,10 @@ var po,
                     F = A(
                       /*! ../internals/define-built-in */ './node_modules/core-js/internals/define-built-in.js'
                     ),
-                    Q = A(
+                    E = A(
                       /*! ../internals/define-built-in-accessor */ './node_modules/core-js/internals/define-built-in-accessor.js'
                     ),
-                    E = A(
+                    Q = A(
                       /*! ../internals/shared */ './node_modules/core-js/internals/shared.js'
                     ),
                     U = A(
@@ -25526,9 +25528,9 @@ var po,
                     $ = B.f,
                     ee = j.f,
                     te = i([].push),
-                    Ae = E('symbols'),
-                    ne = E('op-symbols'),
-                    re = E('wks'),
+                    Ae = Q('symbols'),
+                    ne = Q('op-symbols'),
+                    re = Q('wks'),
                     se = !Y || !Y[R] || !Y[R].findChild,
                     ie = function (e, t, A) {
                       var n = J(z, t);
@@ -25677,7 +25679,7 @@ var po,
                       return ae(I(e), e);
                     }),
                     a &&
-                      (Q(G, 'description', {
+                      (E(G, 'description', {
                         configurable: !0,
                         get: function () {
                           return V(this).description;
@@ -26713,19 +26715,19 @@ var po,
                           A[n - 1] = arguments[n];
                         return new e(...A);
                       }));
-                  const h = Q(Array.prototype.forEach),
-                    f = Q(Array.prototype.lastIndexOf),
-                    p = Q(Array.prototype.pop),
-                    g = Q(Array.prototype.push),
-                    m = Q(Array.prototype.splice),
-                    w = Q(String.prototype.toLowerCase),
-                    y = Q(String.prototype.toString),
-                    v = Q(String.prototype.match),
-                    B = Q(String.prototype.replace),
-                    b = Q(String.prototype.indexOf),
-                    C = Q(String.prototype.trim),
-                    x = Q(Object.prototype.hasOwnProperty),
-                    _ = Q(RegExp.prototype.test),
+                  const h = E(Array.prototype.forEach),
+                    f = E(Array.prototype.lastIndexOf),
+                    p = E(Array.prototype.pop),
+                    g = E(Array.prototype.push),
+                    m = E(Array.prototype.splice),
+                    w = E(String.prototype.toLowerCase),
+                    y = E(String.prototype.toString),
+                    v = E(String.prototype.match),
+                    B = E(String.prototype.replace),
+                    b = E(String.prototype.indexOf),
+                    C = E(String.prototype.trim),
+                    x = E(Object.prototype.hasOwnProperty),
+                    _ = E(RegExp.prototype.test),
                     j =
                       ((F = TypeError),
                       function () {
@@ -26738,7 +26740,7 @@ var po,
                         return d(F, t);
                       });
                   var F;
-                  function Q(e) {
+                  function E(e) {
                     return function (t) {
                       t instanceof RegExp && (t.lastIndex = 0);
                       for (
@@ -26752,7 +26754,7 @@ var po,
                       return u(e, t, n);
                     };
                   }
-                  function E(e, t) {
+                  function Q(e, t) {
                     let A =
                       arguments.length > 2 && void 0 !== arguments[2]
                         ? arguments[2]
@@ -26790,8 +26792,8 @@ var po,
                     for (; null !== e; ) {
                       const A = o(e, t);
                       if (A) {
-                        if (A.get) return Q(A.get);
-                        if ('function' == typeof A.value) return Q(A.value);
+                        if (A.get) return E(A.get);
+                        if ('function' == typeof A.value) return E(A.value);
                       }
                       e = i(e);
                     }
@@ -27500,7 +27502,7 @@ var po,
                         Node: u,
                         Element: d,
                         NodeFilter: F,
-                        NamedNodeMap: Q = t.NamedNodeMap || t.MozNamedAttrMap,
+                        NamedNodeMap: E = t.NamedNodeMap || t.MozNamedAttrMap,
                         HTMLFormElement: U,
                         DOMParser: V,
                         trustedTypes: z,
@@ -27554,10 +27556,10 @@ var po,
                     } = ee;
                     let { IS_ALLOWED_URI: Ce } = ee,
                       xe = null;
-                    const _e = E({}, [...I, ...k, ...N, ...T, ...M]);
+                    const _e = Q({}, [...I, ...k, ...N, ...T, ...M]);
                     let je = null;
-                    const Fe = E({}, [...O, ...D, ...R, ...K]);
-                    let Qe = Object.seal(
+                    const Fe = Q({}, [...O, ...D, ...R, ...K]);
+                    let Ee = Object.seal(
                         c(null, {
                           tagNameCheck: {
                             writable: !0,
@@ -27579,7 +27581,7 @@ var po,
                           },
                         })
                       ),
-                      Ee = null,
+                      Qe = null,
                       Ue = null;
                     const Le = Object.seal(
                       c(null, {
@@ -27615,7 +27617,7 @@ var po,
                       Ge = !1,
                       We = {},
                       Xe = null;
-                    const Ye = E({}, [
+                    const Ye = Q({}, [
                       'annotation-xml',
                       'audio',
                       'colgroup',
@@ -27643,7 +27645,7 @@ var po,
                       'xmp',
                     ]);
                     let Je = null;
-                    const Ze = E({}, [
+                    const Ze = Q({}, [
                       'audio',
                       'video',
                       'img',
@@ -27652,7 +27654,7 @@ var po,
                       'track',
                     ]);
                     let $e = null;
-                    const et = E({}, [
+                    const et = Q({}, [
                         'alt',
                         'class',
                         'for',
@@ -27674,10 +27676,10 @@ var po,
                     let rt = nt,
                       st = !1,
                       it = null;
-                    const ot = E({}, [tt, At, nt], y);
-                    let at = E({}, ['mi', 'mo', 'mn', 'ms', 'mtext']),
-                      lt = E({}, ['annotation-xml']);
-                    const ct = E({}, ['title', 'style', 'font', 'a', 'script']);
+                    const ot = Q({}, [tt, At, nt], y);
+                    let at = Q({}, ['mi', 'mo', 'mn', 'ms', 'mtext']),
+                      lt = Q({}, ['annotation-xml']);
+                    const ct = Q({}, ['title', 'style', 'font', 'a', 'script']);
                     let ut = null;
                     const dt = ['application/xhtml+xml', 'text/html'];
                     let ht = null,
@@ -27701,28 +27703,28 @@ var po,
                                 : e.PARSER_MEDIA_TYPE),
                             (ht = 'application/xhtml+xml' === ut ? y : w),
                             (xe = x(e, 'ALLOWED_TAGS')
-                              ? E({}, e.ALLOWED_TAGS, ht)
+                              ? Q({}, e.ALLOWED_TAGS, ht)
                               : _e),
                             (je = x(e, 'ALLOWED_ATTR')
-                              ? E({}, e.ALLOWED_ATTR, ht)
+                              ? Q({}, e.ALLOWED_ATTR, ht)
                               : Fe),
                             (it = x(e, 'ALLOWED_NAMESPACES')
-                              ? E({}, e.ALLOWED_NAMESPACES, y)
+                              ? Q({}, e.ALLOWED_NAMESPACES, y)
                               : ot),
                             ($e = x(e, 'ADD_URI_SAFE_ATTR')
-                              ? E(L(et), e.ADD_URI_SAFE_ATTR, ht)
+                              ? Q(L(et), e.ADD_URI_SAFE_ATTR, ht)
                               : et),
                             (Je = x(e, 'ADD_DATA_URI_TAGS')
-                              ? E(L(Ze), e.ADD_DATA_URI_TAGS, ht)
+                              ? Q(L(Ze), e.ADD_DATA_URI_TAGS, ht)
                               : Ze),
                             (Xe = x(e, 'FORBID_CONTENTS')
-                              ? E({}, e.FORBID_CONTENTS, ht)
+                              ? Q({}, e.FORBID_CONTENTS, ht)
                               : Ye),
-                            (Ee = x(e, 'FORBID_TAGS')
-                              ? E({}, e.FORBID_TAGS, ht)
+                            (Qe = x(e, 'FORBID_TAGS')
+                              ? Q({}, e.FORBID_TAGS, ht)
                               : L({})),
                             (Ue = x(e, 'FORBID_ATTR')
-                              ? E({}, e.FORBID_ATTR, ht)
+                              ? Q({}, e.FORBID_ATTR, ht)
                               : L({})),
                             (We = !!x(e, 'USE_PROFILES') && e.USE_PROFILES),
                             (Se = !1 !== e.ALLOW_ARIA_ATTR),
@@ -27744,52 +27746,52 @@ var po,
                             (rt = e.NAMESPACE || nt),
                             (at = e.MATHML_TEXT_INTEGRATION_POINTS || at),
                             (lt = e.HTML_INTEGRATION_POINTS || lt),
-                            (Qe = e.CUSTOM_ELEMENT_HANDLING || {}),
+                            (Ee = e.CUSTOM_ELEMENT_HANDLING || {}),
                             e.CUSTOM_ELEMENT_HANDLING &&
                               gt(e.CUSTOM_ELEMENT_HANDLING.tagNameCheck) &&
-                              (Qe.tagNameCheck =
+                              (Ee.tagNameCheck =
                                 e.CUSTOM_ELEMENT_HANDLING.tagNameCheck),
                             e.CUSTOM_ELEMENT_HANDLING &&
                               gt(
                                 e.CUSTOM_ELEMENT_HANDLING.attributeNameCheck
                               ) &&
-                              (Qe.attributeNameCheck =
+                              (Ee.attributeNameCheck =
                                 e.CUSTOM_ELEMENT_HANDLING.attributeNameCheck),
                             e.CUSTOM_ELEMENT_HANDLING &&
                               'boolean' ==
                                 typeof e.CUSTOM_ELEMENT_HANDLING
                                   .allowCustomizedBuiltInElements &&
-                              (Qe.allowCustomizedBuiltInElements =
+                              (Ee.allowCustomizedBuiltInElements =
                                 e.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements),
                             He && (Ie = !1),
                             Re && (De = !0),
                             We &&
-                              ((xe = E({}, M)),
+                              ((xe = Q({}, M)),
                               (je = []),
-                              !0 === We.html && (E(xe, I), E(je, O)),
-                              !0 === We.svg && (E(xe, k), E(je, D), E(je, K)),
+                              !0 === We.html && (Q(xe, I), Q(je, O)),
+                              !0 === We.svg && (Q(xe, k), Q(je, D), Q(je, K)),
                               !0 === We.svgFilters &&
-                                (E(xe, N), E(je, D), E(je, K)),
+                                (Q(xe, N), Q(je, D), Q(je, K)),
                               !0 === We.mathMl &&
-                                (E(xe, T), E(je, R), E(je, K))),
+                                (Q(xe, T), Q(je, R), Q(je, K))),
                             e.ADD_TAGS &&
                               ('function' == typeof e.ADD_TAGS
                                 ? (Le.tagCheck = e.ADD_TAGS)
                                 : (xe === _e && (xe = L(xe)),
-                                  E(xe, e.ADD_TAGS, ht))),
+                                  Q(xe, e.ADD_TAGS, ht))),
                             e.ADD_ATTR &&
                               ('function' == typeof e.ADD_ATTR
                                 ? (Le.attributeCheck = e.ADD_ATTR)
                                 : (je === Fe && (je = L(je)),
-                                  E(je, e.ADD_ATTR, ht))),
+                                  Q(je, e.ADD_ATTR, ht))),
                             e.ADD_URI_SAFE_ATTR &&
-                              E($e, e.ADD_URI_SAFE_ATTR, ht),
+                              Q($e, e.ADD_URI_SAFE_ATTR, ht),
                             e.FORBID_CONTENTS &&
                               (Xe === Ye && (Xe = L(Xe)),
-                              E(Xe, e.FORBID_CONTENTS, ht)),
+                              Q(Xe, e.FORBID_CONTENTS, ht)),
                             qe && (xe['#text'] = !0),
-                            Pe && E(xe, ['html', 'head', 'body']),
-                            xe.table && (E(xe, ['tbody']), delete Ee.tbody),
+                            Pe && Q(xe, ['html', 'head', 'body']),
+                            xe.table && (Q(xe, ['tbody']), delete Qe.tbody),
                             e.TRUSTED_TYPES_POLICY)
                           ) {
                             if (
@@ -27844,8 +27846,8 @@ var po,
                           (a && a(e), (ft = e));
                         }
                       },
-                      wt = E({}, [...k, ...N, ...H]),
-                      yt = E({}, [...T, ...P]),
+                      wt = Q({}, [...k, ...N, ...H]),
+                      yt = Q({}, [...T, ...P]),
                       vt = function (e) {
                         g(A.removed, { element: e });
                         try {
@@ -27931,7 +27933,7 @@ var po,
                           ('string' != typeof e.nodeName ||
                             'string' != typeof e.textContent ||
                             'function' != typeof e.removeChild ||
-                            !(e.attributes instanceof Q) ||
+                            !(e.attributes instanceof E) ||
                             'function' != typeof e.removeAttribute ||
                             'function' != typeof e.setAttribute ||
                             'string' != typeof e.namespaceURI ||
@@ -27971,17 +27973,17 @@ var po,
                           !(
                             Le.tagCheck instanceof Function && Le.tagCheck(n)
                           ) &&
-                          (!xe[n] || Ee[n])
+                          (!xe[n] || Qe[n])
                         ) {
-                          if (!Ee[n] && Et(n)) {
+                          if (!Qe[n] && Qt(n)) {
                             if (
-                              Qe.tagNameCheck instanceof RegExp &&
-                              _(Qe.tagNameCheck, n)
+                              Ee.tagNameCheck instanceof RegExp &&
+                              _(Ee.tagNameCheck, n)
                             )
                               return !1;
                             if (
-                              Qe.tagNameCheck instanceof Function &&
-                              Qe.tagNameCheck(n)
+                              Ee.tagNameCheck instanceof Function &&
+                              Ee.tagNameCheck(n)
                             )
                               return !1;
                           }
@@ -28049,7 +28051,7 @@ var po,
                               !1)
                             : (vt(e), !0);
                       },
-                      Qt = function (e, t, A) {
+                      Et = function (e, t, A) {
                         if (
                           Ve &&
                           ('id' === t || 'name' === t) &&
@@ -28065,21 +28067,21 @@ var po,
                         else if (!je[t] || Ue[t]) {
                           if (
                             !(
-                              (Et(e) &&
-                                ((Qe.tagNameCheck instanceof RegExp &&
-                                  _(Qe.tagNameCheck, e)) ||
-                                  (Qe.tagNameCheck instanceof Function &&
-                                    Qe.tagNameCheck(e))) &&
-                                ((Qe.attributeNameCheck instanceof RegExp &&
-                                  _(Qe.attributeNameCheck, t)) ||
-                                  (Qe.attributeNameCheck instanceof Function &&
-                                    Qe.attributeNameCheck(t, e)))) ||
+                              (Qt(e) &&
+                                ((Ee.tagNameCheck instanceof RegExp &&
+                                  _(Ee.tagNameCheck, e)) ||
+                                  (Ee.tagNameCheck instanceof Function &&
+                                    Ee.tagNameCheck(e))) &&
+                                ((Ee.attributeNameCheck instanceof RegExp &&
+                                  _(Ee.attributeNameCheck, t)) ||
+                                  (Ee.attributeNameCheck instanceof Function &&
+                                    Ee.attributeNameCheck(t, e)))) ||
                               ('is' === t &&
-                                Qe.allowCustomizedBuiltInElements &&
-                                ((Qe.tagNameCheck instanceof RegExp &&
-                                  _(Qe.tagNameCheck, A)) ||
-                                  (Qe.tagNameCheck instanceof Function &&
-                                    Qe.tagNameCheck(A))))
+                                Ee.allowCustomizedBuiltInElements &&
+                                ((Ee.tagNameCheck instanceof RegExp &&
+                                  _(Ee.tagNameCheck, A)) ||
+                                  (Ee.tagNameCheck instanceof Function &&
+                                    Ee.tagNameCheck(A))))
                             )
                           )
                             return !1;
@@ -28095,7 +28097,7 @@ var po,
                           else if (A) return !1;
                         return !0;
                       },
-                      Et = function (e) {
+                      Qt = function (e) {
                         return 'annotation-xml' !== e && v(e, be);
                       },
                       Ut = function (e) {
@@ -28150,7 +28152,7 @@ var po,
                               u = B(u, e, ' ');
                             });
                           const d = ht(e.nodeName);
-                          if (Qt(d, l, u)) {
+                          if (Et(d, l, u)) {
                             if (
                               oe &&
                               'object' == typeof z &&
@@ -28220,7 +28222,7 @@ var po,
                         ) {
                           if (e.nodeName) {
                             const t = ht(e.nodeName);
-                            if (!xe[t] || Ee[t])
+                            if (!xe[t] || Qe[t])
                               throw j(
                                 'root node is forbidden and cannot be sanitized in-place'
                               );
@@ -28291,7 +28293,7 @@ var po,
                         ft || mt({});
                         const n = ht(e),
                           r = ht(t);
-                        return Qt(n, r, A);
+                        return Et(n, r, A);
                       }),
                       (A.addHook = function (e, t) {
                         'function' == typeof t && g(fe[e], t);
@@ -29708,7 +29710,7 @@ var po,
                         return Se;
                       },
                       AsyncInflate: function () {
-                        return Qe;
+                        return Ee;
                       },
                       AsyncUnzipInflate: function () {
                         return Bt;
@@ -29804,7 +29806,7 @@ var po,
                         return ke;
                       },
                       inflate: function () {
-                        return Ee;
+                        return Qe;
                       },
                       inflateSync: function () {
                         return Ue;
@@ -29923,11 +29925,11 @@ var po,
                         e[A] > t && (t = e[A]);
                       return t;
                     },
-                    Q = function (e, t, A) {
+                    E = function (e, t, A) {
                       var n = (t / 8) | 0;
                       return ((e[n] | (e[n + 1] << 8)) >> (7 & t)) & A;
                     },
-                    E = function (e, t) {
+                    Q = function (e, t) {
                       var A = (t / 8) | 0;
                       return (
                         (e[A] | (e[A + 1] << 8) | (e[A + 2] << 16)) >> (7 & t)
@@ -30012,8 +30014,8 @@ var po,
                         _ = 8 * s;
                       do {
                         if (!y) {
-                          g = Q(e, m, 1);
-                          var S = Q(e, m + 1, 3);
+                          g = E(e, m, 1);
+                          var S = E(e, m + 1, 3);
                           if (((m += 3), !S)) {
                             var I = e[(z = U(m) + 4) - 4] | (e[z - 3] << 8),
                               N = z + I;
@@ -30030,23 +30032,23 @@ var po,
                           }
                           if (1 == S) ((y = x), (B = j), (b = 9), (C = 5));
                           else if (2 == S) {
-                            var H = Q(e, m, 31) + 257,
-                              T = Q(e, m + 10, 15) + 4,
-                              P = H + Q(e, m + 5, 31) + 1;
+                            var H = E(e, m, 31) + 257,
+                              T = E(e, m + 10, 15) + 4,
+                              P = H + E(e, m + 5, 31) + 1;
                             m += 14;
                             for (
                               var M = new r(P), O = new r(19), D = 0;
                               D < T;
                               ++D
                             )
-                              O[l[D]] = Q(e, m + 3 * D, 7);
+                              O[l[D]] = E(e, m + 3 * D, 7);
                             m += 3 * T;
                             var R = F(O),
                               K = (1 << R) - 1,
                               V = v(O, R, 1);
                             for (D = 0; D < P; ) {
                               var z,
-                                q = V[Q(e, m, K)];
+                                q = V[E(e, m, K)];
                               if (((m += 15 & q), (z = q >> 4) < 16))
                                 M[D++] = z;
                               else {
@@ -30054,13 +30056,13 @@ var po,
                                   W = 0;
                                 for (
                                   16 == z
-                                    ? ((W = 3 + Q(e, m, 3)),
+                                    ? ((W = 3 + E(e, m, 3)),
                                       (m += 2),
                                       (G = M[D - 1]))
                                     : 17 == z
-                                      ? ((W = 3 + Q(e, m, 7)), (m += 3))
+                                      ? ((W = 3 + E(e, m, 7)), (m += 3))
                                       : 18 == z &&
-                                        ((W = 11 + Q(e, m, 127)), (m += 7));
+                                        ((W = 11 + E(e, m, 127)), (m += 7));
                                   W--;
                                 )
                                   M[D++] = G;
@@ -30084,7 +30086,7 @@ var po,
                           ;
                           $ = m
                         ) {
-                          var ee = (G = y[E(e, m) & J]) >> 4;
+                          var ee = (G = y[Q(e, m) & J]) >> 4;
                           if ((m += 15 & G) > _) {
                             h && k(0);
                             break;
@@ -30098,9 +30100,9 @@ var po,
                             var te = ee - 254;
                             if (ee > 264) {
                               var Ae = o[(D = ee - 257)];
-                              ((te = Q(e, m, (1 << Ae) - 1) + d[D]), (m += Ae));
+                              ((te = E(e, m, (1 << Ae) - 1) + d[D]), (m += Ae));
                             }
-                            var ne = B[E(e, m) & Z],
+                            var ne = B[Q(e, m) & Z],
                               re = ne >> 4;
                             if (
                               (ne || k(3),
@@ -30108,7 +30110,7 @@ var po,
                               (Y = p[re]),
                               re > 3 &&
                                 ((Ae = a[re]),
-                                (Y += E(e, m) & ((1 << Ae) - 1)),
+                                (Y += Q(e, m) & ((1 << Ae) - 1)),
                                 (m += Ae)),
                               m > _)
                             ) {
@@ -30269,10 +30271,10 @@ var po,
                           x = w.l,
                           j = O(g),
                           F = j.c,
-                          Q = j.n,
-                          E = O(y),
-                          U = E.c,
-                          L = E.n,
+                          E = j.n,
+                          Q = O(y),
+                          U = Q.c,
+                          L = Q.n,
                           S = new s(19),
                           I = 0;
                         I < F.length;
@@ -30307,7 +30309,7 @@ var po,
                         ((V = v(g, m, 0)), (z = g), (q = v(y, x, 0)), (G = y));
                         var J = v(N, M, 0);
                         for (
-                          H(t, f, Q - 257),
+                          H(t, f, E - 257),
                             H(t, f + 5, L - 1),
                             H(t, f + 10, K - 4),
                             f += 14,
@@ -30372,8 +30374,8 @@ var po,
                               );
                             },
                             F = new i(25e3),
-                            Q = new s(288),
-                            E = new s(32),
+                            E = new s(288),
+                            Q = new s(32),
                             S = 0,
                             I = 0,
                             k = c.i || 0,
@@ -30389,11 +30391,11 @@ var po,
                           if (((b[M] = O), (C[P] = M), H <= k)) {
                             var D = u - k;
                             if ((S > 7e3 || N > 24576) && (D > 423 || !p)) {
-                              ((m = K(e, f, 0, F, Q, E, I, N, T, k - T, m)),
+                              ((m = K(e, f, 0, F, E, Q, I, N, T, k - T, m)),
                                 (N = S = I = 0),
                                 (T = k));
-                              for (var z = 0; z < 286; ++z) Q[z] = 0;
-                              for (z = 0; z < 30; ++z) E[z] = 0;
+                              for (var z = 0; z < 286; ++z) E[z] = 0;
+                              for (z = 0; z < 30; ++z) Q[z] = 0;
                             }
                             var q = 2,
                               G = 0,
@@ -30430,16 +30432,16 @@ var po,
                               var re = 31 & h[q],
                                 se = 31 & g[G];
                               ((I += o[re] + a[se]),
-                                ++Q[257 + re],
-                                ++E[se],
+                                ++E[257 + re],
+                                ++Q[se],
                                 (H = k + q),
                                 ++S);
-                            } else ((F[N++] = e[k]), ++Q[e[k]]);
+                            } else ((F[N++] = e[k]), ++E[e[k]]);
                           }
                         }
                         for (k = Math.max(k, H); k < u; ++k)
-                          ((F[N++] = e[k]), ++Q[e[k]]);
-                        ((m = K(e, f, p, F, Q, E, I, N, T, k - T, m)),
+                          ((F[N++] = e[k]), ++E[e[k]]);
+                        ((m = K(e, f, p, F, E, Q, I, N, T, k - T, m)),
                           p ||
                             ((c.r = (7 & m) | (f[(m / 8) | 0] << 3)),
                             (m -= 7),
@@ -30642,8 +30644,8 @@ var po,
                         I,
                         v,
                         F,
-                        Q,
                         E,
+                        Q,
                         U,
                         L,
                         k,
@@ -30998,7 +31000,7 @@ var po,
                         e
                       );
                     })(),
-                    Qe = (function () {
+                    Ee = (function () {
                       return function (e, t) {
                         ue(
                           [
@@ -31018,7 +31020,7 @@ var po,
                         );
                       };
                     })();
-                  function Ee(e, t, A) {
+                  function Qe(e, t, A) {
                     return (
                       A || ((A = t), (t = {})),
                       'function' != typeof A && k(7),
@@ -31409,7 +31411,7 @@ var po,
                         (Ge.call(this, e, t),
                           (this.queuedSize = 0),
                           (this.G = He),
-                          (this.I = Qe),
+                          (this.I = Ee),
                           (this.Z = Ve));
                       }
                       return (
@@ -31438,7 +31440,7 @@ var po,
                         : 8 != (15 & e[0]) ||
                             e[0] >> 4 > 7 ||
                             ((e[0] << 8) | e[1]) % 31
-                          ? Ee(e, t, A)
+                          ? Qe(e, t, A)
                           : ze(e, t, A)
                     );
                   }
@@ -32079,7 +32081,7 @@ var po,
                           ? (this.i = new Fe(function (e, t) {
                               A.ondata(null, e, t);
                             }))
-                          : ((this.i = new Qe(function (e, t, n) {
+                          : ((this.i = new Ee(function (e, t, n) {
                               A.ondata(e, t, n);
                             })),
                             (this.terminate = this.i.terminate));
@@ -32323,7 +32325,7 @@ var po,
                                     } catch (e) {
                                       y(e, null);
                                     }
-                                  else n.push(Ee(v, { size: h }, y));
+                                  else n.push(Qe(v, { size: h }, y));
                                 } else
                                   y(
                                     k(14, 'unknown compression type ' + a, 1),
@@ -32773,7 +32775,7 @@ var po,
                   (A.r(t),
                     A.d(t, {
                       AcroForm: function () {
-                        return Qe;
+                        return Ee;
                       },
                       AcroFormAppearance: function () {
                         return je;
@@ -33425,17 +33427,17 @@ var po,
                       (4278190080 & e) >> 24
                     );
                   }
-                  function Q(e) {
+                  function E(e) {
                     return C(e).map(F).join('');
                   }
-                  var E =
+                  var Q =
                     '5d41402abc4b2a76b9719d911017c592' !=
                     (function (e) {
                       for (var t = 0; t < e.length; t++) e[t] = j(e[t]);
                       return e.join('');
                     })(C('hello'));
                   function U(e, t) {
-                    if (E) {
+                    if (Q) {
                       var A = (65535 & e) + (65535 & t);
                       return (
                         (((e >> 16) + (t >> 16) + (A >> 16)) << 16) |
@@ -33515,7 +33517,7 @@ var po,
                       i = (A + this.padding).substr(0, 32);
                     ((this.O = this.processOwnerPassword(s, i)),
                       (this.P = -(1 + (255 ^ r))),
-                      (this.encryptionKey = Q(
+                      (this.encryptionKey = E(
                         s +
                           this.O +
                           this.lsbFirstWord(this.P) +
@@ -33736,10 +33738,10 @@ var po,
                         (d = 'n'),
                         (j = _));
                     }
-                    function Q() {
+                    function E() {
                       (this.restoreGraphicsState(), (d = 'S'), (j = x));
                     }
-                    var E = (y.__private__.combineFontStyleAndFontWeight =
+                    var Q = (y.__private__.combineFontStyleAndFontWeight =
                       function (e, t) {
                         if (
                           ('bold' == e && 'normal' == t) ||
@@ -33767,14 +33769,14 @@ var po,
                       var t = j === x;
                       return (
                         t && F.call(this),
-                        'function' != typeof e || (e(this), t && Q.call(this)),
+                        'function' != typeof e || (e(this), t && E.call(this)),
                         this
                       );
                     }),
                       (y.compatAPI = function (e) {
                         var t = j === _;
                         return (
-                          t && Q.call(this),
+                          t && E.call(this),
                           'function' != typeof e ||
                             (e(this), t && F.call(this)),
                           this
@@ -34185,8 +34187,8 @@ var po,
                       _e,
                       je,
                       Fe,
-                      Qe,
-                      Ee = {},
+                      Ee,
+                      Qe = {},
                       Ue = {},
                       Le = [],
                       Se = {},
@@ -34951,11 +34953,11 @@ var po,
                           ce('<<'),
                           ce('/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]'),
                           (function () {
-                            for (var e in (ce('/Font <<'), Ee))
-                              Ee.hasOwnProperty(e) &&
+                            for (var e in (ce('/Font <<'), Qe))
+                              Qe.hasOwnProperty(e) &&
                                 (!1 === m ||
                                   (!0 === m && w.hasOwnProperty(e))) &&
-                                ce('/' + e + ' ' + Ee[e].objectNumber + ' 0 R');
+                                ce('/' + e + ' ' + Qe[e].objectNumber + ' 0 R');
                             ce('>>');
                           })(),
                           (function () {
@@ -35011,7 +35013,7 @@ var po,
                       },
                       ft = function (e, t, A, n, r) {
                         var s = {
-                          id: 'F' + (Object.keys(Ee).length + 1).toString(10),
+                          id: 'F' + (Object.keys(Qe).length + 1).toString(10),
                           postScriptName: e,
                           fontName: t,
                           fontStyle: A,
@@ -35021,7 +35023,7 @@ var po,
                         };
                         return (
                           Me.publish('addFont', { font: s, instance: this }),
-                          (Ee[s.id] = s),
+                          (Qe[s.id] = s),
                           ht(s),
                           s.id
                         );
@@ -35037,13 +35039,13 @@ var po,
                                   (t = t || {}).sourceEncoding || 'Unicode'),
                                 (i = t.outputEncoding),
                                 (t.autoencode || i) &&
-                                  Ee[xe].metadata &&
-                                  Ee[xe].metadata[r] &&
-                                  Ee[xe].metadata[r].encoding &&
-                                  ((s = Ee[xe].metadata[r].encoding),
+                                  Qe[xe].metadata &&
+                                  Qe[xe].metadata[r] &&
+                                  Qe[xe].metadata[r].encoding &&
+                                  ((s = Qe[xe].metadata[r].encoding),
                                   !i &&
-                                    Ee[xe].encoding &&
-                                    (i = Ee[xe].encoding),
+                                    Qe[xe].encoding &&
+                                    (i = Qe[xe].encoding),
                                   !i && s.codePages && (i = s.codePages[0]),
                                   'string' == typeof i && (i = s[i]),
                                   i))
@@ -35160,8 +35162,8 @@ var po,
                           r = void 0;
                         return (
                           (A = A || {}),
-                          (e = void 0 !== e ? e : Ee[xe].fontName),
-                          (t = void 0 !== t ? t : Ee[xe].fontStyle),
+                          (e = void 0 !== e ? e : Qe[xe].fontName),
+                          (t = void 0 !== t ? t : Qe[xe].fontStyle),
                           (n = e.toLowerCase()),
                           void 0 !== Ue[n] && void 0 !== Ue[n][t]
                             ? (r = Ue[n][t])
@@ -35305,11 +35307,11 @@ var po,
                           })(),
                           (e = []),
                           (function () {
-                            for (var e in Ee)
-                              Ee.hasOwnProperty(e) &&
+                            for (var e in Qe)
+                              Qe.hasOwnProperty(e) &&
                                 (!1 === m ||
                                   (!0 === m && w.hasOwnProperty(e))) &&
-                                ot(Ee[e]);
+                                ot(Qe[e]);
                           })(),
                           (function () {
                             var e;
@@ -35357,10 +35359,10 @@ var po,
                           ne.join('\n')
                         );
                       }),
-                      Qt = (y.__private__.getBlob = function (e) {
+                      Et = (y.__private__.getBlob = function (e) {
                         return new Blob([de(e)], { type: 'application/pdf' });
                       }),
-                      Et =
+                      Qt =
                         (y.output =
                         y.__private__.output =
                           ((We = function (e, t) {
@@ -35378,7 +35380,7 @@ var po,
                               case 'arraybuffer':
                                 return de(Ft());
                               case 'blob':
-                                return Qt(Ft());
+                                return Et(Ft());
                               case 'bloburi':
                               case 'bloburl':
                                 if (
@@ -35387,7 +35389,7 @@ var po,
                                 )
                                   return (
                                     (o.URL &&
-                                      o.URL.createObjectURL(Qt(Ft()))) ||
+                                      o.URL.createObjectURL(Et(Ft()))) ||
                                     void 0
                                   );
                                 l.warn(
@@ -35702,17 +35704,17 @@ var po,
                             return A;
                           }
                           var F = !1,
-                            Q = !0;
+                            E = !0;
                           if ('string' == typeof e) F = !0;
                           else if (Array.isArray(e)) {
-                            var E = e.concat();
+                            var Q = e.concat();
                             o = [];
-                            for (var S, I = E.length; I--; )
-                              ('string' != typeof (S = E.shift()) ||
+                            for (var S, I = Q.length; I--; )
+                              ('string' != typeof (S = Q.shift()) ||
                                 (Array.isArray(S) &&
                                   'string' != typeof S[0])) &&
-                                (Q = !1);
-                            F = Q;
+                                (E = !1);
+                            F = E;
                           }
                           if (!1 === F)
                             throw new Error(
@@ -35756,7 +35758,7 @@ var po,
                               mutex: {
                                 pdfEscape: pt,
                                 activeFontKey: xe,
-                                fonts: Ee,
+                                fonts: Qe,
                                 activeFontSize: fe,
                               },
                             }),
@@ -35832,7 +35834,7 @@ var po,
                           var K,
                             V = fe * v,
                             z = p.internal.pageSize.getWidth(),
-                            q = Ee[xe];
+                            q = Qe[xe];
                           ((c = r.charSpace || lA),
                             (u = r.maxWidth || 0),
                             (d = Object.assign(
@@ -35943,14 +35945,14 @@ var po,
                               mutex: {
                                 pdfEscape: pt,
                                 activeFontKey: xe,
-                                fonts: Ee,
+                                fonts: Qe,
                                 activeFontSize: fe,
                               },
                             }),
                             Me.publish('postProcessText', i),
                             (e = i.text),
                             (m = i.mutex.isHex || !1));
-                          var le = Ee[xe].encoding;
+                          var le = Qe[xe].encoding;
                           (('WinAnsiEncoding' !== le &&
                             'StandardEncoding' !== le) ||
                             (e = x(e, function (e, t, A) {
@@ -36392,7 +36394,7 @@ var po,
                         }),
                       (y.setFont = function (e, t, A) {
                         return (
-                          A && (t = E(t, A)),
+                          A && (t = Q(t, A)),
                           (xe = Bt(e, t, { disableWarning: !1 })),
                           this
                         );
@@ -36401,7 +36403,7 @@ var po,
                       (y.__private__.getFont =
                       y.getFont =
                         function () {
-                          return Ee[Bt.apply(y, arguments)];
+                          return Qe[Bt.apply(y, arguments)];
                         });
                     ((y.__private__.getFontList = y.getFontList =
                       function () {
@@ -36426,7 +36428,7 @@ var po,
                             ? (r = arguments[3])
                             : arguments[3] &&
                               -1 == s.indexOf(arguments[3]) &&
-                              (A = E(A, n)),
+                              (A = Q(A, n)),
                           ft.call(this, e, t, A, (r = r || 'Identity-H'))
                         );
                       }));
@@ -36770,7 +36772,7 @@ var po,
                           (this.pagesContext = Pe.slice(0)),
                           (this.x = je),
                           (this.y = Fe),
-                          (this.matrix = Qe),
+                          (this.matrix = Ee),
                           (this.width = yA(Z)),
                           (this.height = BA(Z)),
                           (this.outputDestination = ae),
@@ -36784,7 +36786,7 @@ var po,
                         (ie = this.pages),
                         (je = this.x),
                         (Fe = this.y),
-                        (Qe = this.matrix),
+                        (Ee = this.matrix),
                         vA(Z, this.width),
                         bA(Z, this.height),
                         (ae = this.outputDestination));
@@ -36795,7 +36797,7 @@ var po,
                         (ie = []),
                         (je = e),
                         (Fe = t),
-                        (Qe = r),
+                        (Ee = r),
                         gt([A, n]));
                     };
                     for (var wA in ((y.beginFormObject = function (
@@ -36851,14 +36853,14 @@ var po,
                         (e = e || 'generated.pdf'),
                         ((t = t || {}).returnPromise = t.returnPromise || !1),
                         !1 === t.returnPromise
-                          ? (h(Qt(Ft()), e),
+                          ? (h(Et(Ft()), e),
                             'function' == typeof h.unload &&
                               o.setTimeout &&
                               setTimeout(h.unload, 911),
                             this)
                           : new Promise(function (t, A) {
                               try {
-                                var n = h(Qt(Ft()), e);
+                                var n = h(Et(Ft()), e);
                                 ('function' == typeof h.unload &&
                                   o.setTimeout &&
                                   setTimeout(h.unload, 911),
@@ -36959,7 +36961,7 @@ var po,
                                 return e;
                               };
                         },
-                        output: Et,
+                        output: Qt,
                         getNumberOfPages: vt,
                         get pages() {
                           return ie;
@@ -37010,7 +37012,7 @@ var po,
                           var r = e[t][0].split('-');
                           ht({ id: n, fontName: r[0], fontStyle: r[1] || '' });
                         }
-                        Me.publish('addFonts', { fonts: Ee, dictionary: Ue });
+                        Me.publish('addFonts', { fonts: Qe, dictionary: Ue });
                       }.call(y, he),
                       (xe = 'F1'),
                       mt(s, A),
@@ -37044,10 +37046,10 @@ var po,
                       return t.join('');
                     }),
                     (I.prototype.processOwnerPassword = function (e, t) {
-                      return L(Q(t).substr(0, 5), e);
+                      return L(E(t).substr(0, 5), e);
                     }),
                     (I.prototype.encryptor = function (e, t) {
-                      var A = Q(
+                      var A = E(
                         this.encryptionKey +
                           String.fromCharCode(
                             255 & e,
@@ -39279,8 +39281,8 @@ var po,
                       PasswordField: _e,
                       Appearance: je,
                     }));
-                  var Qe = D.AcroForm;
-                  function Ee(e) {
+                  var Ee = D.AcroForm;
+                  function Qe(e) {
                     return e.reduce(function (e, t, A) {
                       return ((e[t] = A), e);
                     }, {});
@@ -39806,7 +39808,7 @@ var po,
                         var o, a, l;
                         if ('string' == typeof t && s(t) === A) {
                           t = unescape(t);
-                          var c = Q(t, !1);
+                          var c = E(t, !1);
                           ('' !== c || void 0 !== (c = e.loadFile(t, !0))) &&
                             (t = c);
                         }
@@ -39852,7 +39854,7 @@ var po,
                           );
                         return o;
                       },
-                      Q = (e.__addimage__.convertBase64ToBinaryString =
+                      E = (e.__addimage__.convertBase64ToBinaryString =
                         function (e, t) {
                           t = 'boolean' != typeof t || t;
                           var A,
@@ -39884,7 +39886,7 @@ var po,
                         (h(t) && (t = f(t)),
                         'string' == typeof t &&
                           s(t) === A &&
-                          ('' === (i = Q(t, !1)) && (i = e.loadFile(t) || ''),
+                          ('' === (i = E(t, !1)) && (i = e.loadFile(t) || ''),
                           (t = i)),
                         (r = s(t)),
                         !d(r))
@@ -40827,16 +40829,16 @@ var po,
                             u.margins ||
                             Object.assign({ width: this.getPageWidth() }, t),
                           F = 'number' == typeof u.padding ? u.padding : 3,
-                          Q = u.headerBackgroundColor || '#c8c8c8',
-                          E = u.headerTextColor || '#000';
+                          E = u.headerBackgroundColor || '#c8c8c8',
+                          Q = u.headerTextColor || '#000';
                         if (
                           (s.call(this),
                           (this.internal.__cell__.printHeaders = x),
                           (this.internal.__cell__.margins = j),
                           (this.internal.__cell__.table_font_size = _),
                           (this.internal.__cell__.padding = F),
-                          (this.internal.__cell__.headerBackgroundColor = Q),
-                          (this.internal.__cell__.headerTextColor = E),
+                          (this.internal.__cell__.headerBackgroundColor = E),
+                          (this.internal.__cell__.headerTextColor = Q),
                           this.setFontSize(_),
                           null == c)
                         )
@@ -41044,9 +41046,9 @@ var po,
                       'extra-expanded',
                       'ultra-expanded',
                     ],
-                    Se = Ee(Le),
+                    Se = Qe(Le),
                     Ie = [100, 200, 300, 400, 500, 600, 700, 800, 900],
-                    ke = Ee(Ie);
+                    ke = Qe(Ie);
                   function Ne(e) {
                     var t = e.family.replace(/"|'/g, '').toLowerCase(),
                       A = (function (e) {
@@ -41641,8 +41643,8 @@ var po,
                         231, 232, 233, 234, 241, 242, 243, 244, 245, 246, 247,
                         248, 249, 250,
                       ],
-                      Q = [0, 0, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
-                      E = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                      E = [0, 0, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+                      Q = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                       U = [0, 0, 2, 1, 2, 4, 4, 3, 4, 7, 5, 4, 4, 0, 1, 2, 119],
                       L = [
                         0, 1, 2, 3, 17, 4, 5, 33, 49, 6, 18, 65, 81, 7, 97, 113,
@@ -41732,15 +41734,15 @@ var po,
                               var j = 0.707106781 * (_ + C);
                               ((e[d + 2] = C + j), (e[d + 6] = C - j));
                               var F = 0.382683433 * ((b = B + y) - (_ = m + p)),
-                                Q = 0.5411961 * b + F,
-                                E = 1.306562965 * _ + F,
+                                E = 0.5411961 * b + F,
+                                Q = 1.306562965 * _ + F,
                                 U = 0.707106781 * (x = y + m),
                                 L = p + U,
                                 S = p - U;
-                              ((e[d + 5] = S + Q),
-                                (e[d + 3] = S - Q),
-                                (e[d + 1] = L + E),
-                                (e[d + 7] = L - E),
+                              ((e[d + 5] = S + E),
+                                (e[d + 3] = S - E),
+                                (e[d + 1] = L + Q),
+                                (e[d + 7] = L - Q),
                                 (d += 8));
                             }
                             for (d = 0, c = 0; c < 8; ++c) {
@@ -41918,8 +41920,8 @@ var po,
                           for (var A = 0; A < 16; A++) k(j[A + 1]);
                           for (var n = 0; n <= 161; n++) k(F[n]);
                           k(1);
-                          for (var r = 0; r < 16; r++) k(Q[r + 1]);
-                          for (var s = 0; s <= 11; s++) k(E[s]);
+                          for (var r = 0; r < 16; r++) k(E[r + 1]);
+                          for (var s = 0; s <= 11; s++) k(Q[s]);
                           k(17);
                           for (var i = 0; i < 16; i++) k(U[i + 1]);
                           for (var o = 0; o <= 161; o++) k(L[o]);
@@ -42002,7 +42004,7 @@ var po,
                           B[t] = e(t);
                       })(),
                       (t = S(x, _)),
-                      (A = S(Q, E)),
+                      (A = S(E, Q)),
                       (n = S(j, F)),
                       (r = S(U, L)),
                       (function () {
@@ -42207,7 +42209,7 @@ var po,
                           j(e));
                       }
                       function p(e, t) {
-                        for (var A = 0; 0 < t--; ) A |= Q(e, 128) << t;
+                        for (var A = 0; 0 < t--; ) A |= E(e, 128) << t;
                         return A;
                       }
                       function g(e, t) {
@@ -42293,7 +42295,7 @@ var po,
                       function F(e) {
                         return p(e, 1);
                       }
-                      function Q(e, t) {
+                      function E(e, t) {
                         var A = e.Ca;
                         0 > e.b && j(e);
                         var n = e.b,
@@ -42315,7 +42317,7 @@ var po,
                           s
                         );
                       }
-                      function E(e, t, A) {
+                      function Q(e, t, A) {
                         ((e[t + 0] = (A >> 24) & 255),
                           (e[t + 1] = (A >> 16) & 255),
                           (e[t + 2] = (A >> 8) & 255),
@@ -42514,7 +42516,7 @@ var po,
                       function te(e, t, A, r, s, i) {
                         if (0 == i)
                           for (A = t + A; t < A; )
-                            (E(
+                            (Q(
                               r,
                               (((i = e[t++])[0] >> 24) |
                                 ((i[1] >> 8) & 65280) |
@@ -42795,7 +42797,7 @@ var po,
                           } else alert('todo:EmitYUV');
                           r && ((t.Jb = ue), n && pA());
                         }
-                        if (n && !Er) {
+                        if (n && !Qr) {
                           for (e = 0; 256 > e; ++e)
                             ((Ur[e] = (89858 * (e - 128) + _r) >> xr),
                               (Ir[e] = -22014 * (e - 128) + _r),
@@ -42805,7 +42807,7 @@ var po,
                             ((t = (76283 * (e - 16) + _r) >> xr),
                               (kr[e - jr] = ze(t, 255)),
                               (Nr[e - jr] = ze((t + 8) >> 4, 15)));
-                          Er = 1;
+                          Qr = 1;
                         }
                         return 1;
                       }
@@ -42919,21 +42921,21 @@ var po,
                                 m < w;
                               ) {
                                 var F = _,
-                                  Q = j,
-                                  E = 1;
-                                for (VA(f, p, y, v - B, 1, y, v); E < B; ) {
-                                  var U = (E & ~C) + b;
+                                  E = j,
+                                  Q = 1;
+                                for (VA(f, p, y, v - B, 1, y, v); Q < B; ) {
+                                  var U = (Q & ~C) + b;
                                   (U > B && (U = B),
-                                    (0, YA[(F[Q++] >> 8) & 15])(
+                                    (0, YA[(F[E++] >> 8) & 15])(
                                       f,
-                                      p + +E,
+                                      p + +Q,
                                       y,
-                                      v + E - B,
-                                      U - E,
+                                      v + Q - B,
+                                      U - Q,
                                       y,
-                                      v + E
+                                      v + Q
                                     ),
-                                    (E = U));
+                                    (Q = U));
                                 }
                                 ((p += B), (v += B), ++m & C || (j += x));
                               }
@@ -43169,15 +43171,15 @@ var po,
                               if ((_(c), y.jc)) {
                                 ((B = c), (j = A));
                                 var F = d,
-                                  Q = y.pd[b(B) & (TA - 1)];
+                                  E = y.pd[b(B) & (TA - 1)];
                                 (t(y.jc),
-                                  256 > Q.g
-                                    ? (x(B, B.u + Q.g),
-                                      (j[F] = Q.value),
+                                  256 > E.g
+                                    ? (x(B, B.u + E.g),
+                                      (j[F] = E.value),
                                       (B = 0))
-                                    : (x(B, B.u + Q.g - 256),
-                                      t(256 <= Q.value),
-                                      (B = Q.value)),
+                                    : (x(B, B.u + E.g - 256),
+                                      t(256 <= E.value),
+                                      (B = E.value)),
                                   0 == B && (v = !0));
                               } else B = we(y.G[0], y.H[0], c);
                             if (c.h) break;
@@ -43277,7 +43279,7 @@ var po,
                           (e.vb = null),
                           t(null != e));
                       }
-                      function Qe() {
+                      function Ee() {
                         var t = new sA();
                         return null == t
                           ? null
@@ -43298,7 +43300,7 @@ var po,
                             (e.VP8LMapColor8b = XA),
                             t);
                       }
-                      function Ee(e, A, n, o, a) {
+                      function Qe(e, A, n, o, a) {
                         var l = 1,
                           d = [e],
                           f = [A],
@@ -43314,31 +43316,31 @@ var po,
                                 C = o,
                                 j = 1,
                                 F = C.m,
-                                Q = C.gc[C.ab],
-                                E = y(F, 2);
-                              if (C.Oc & (1 << E)) l = 0;
+                                E = C.gc[C.ab],
+                                Q = y(F, 2);
+                              if (C.Oc & (1 << Q)) l = 0;
                               else {
                                 switch (
-                                  ((C.Oc |= 1 << E),
-                                  (Q.hc = E),
-                                  (Q.Ea = v[0]),
-                                  (Q.nc = B[0]),
-                                  (Q.K = [null]),
+                                  ((C.Oc |= 1 << Q),
+                                  (E.hc = Q),
+                                  (E.Ea = v[0]),
+                                  (E.nc = B[0]),
+                                  (E.K = [null]),
                                   ++C.ab,
                                   t(4 >= C.ab),
-                                  E)
+                                  Q)
                                 ) {
                                   case 0:
                                   case 1:
-                                    ((Q.b = y(F, 3) + 2),
-                                      (j = Ee(
-                                        T(Q.Ea, Q.b),
-                                        T(Q.nc, Q.b),
+                                    ((E.b = y(F, 3) + 2),
+                                      (j = Qe(
+                                        T(E.Ea, E.b),
+                                        T(E.nc, E.b),
                                         0,
                                         C,
-                                        Q.K
+                                        E.K
                                       )),
-                                      (Q.K = Q.K[0]));
+                                      (E.K = E.K[0]));
                                     break;
                                   case 3:
                                     var U,
@@ -43346,13 +43348,13 @@ var po,
                                       S =
                                         16 < L ? 0 : 4 < L ? 1 : 2 < L ? 2 : 3;
                                     if (
-                                      ((v[0] = T(Q.Ea, S)),
-                                      (Q.b = S),
-                                      (U = j = Ee(L, 1, 0, C, Q.K)))
+                                      ((v[0] = T(E.Ea, S)),
+                                      (E.b = S),
+                                      (U = j = Qe(L, 1, 0, C, E.K)))
                                     ) {
                                       var k,
                                         N = L,
-                                        H = Q,
+                                        H = E,
                                         M = 1 << (8 >> H.b),
                                         O = s(M);
                                       if (null == O) U = 0;
@@ -43414,7 +43416,7 @@ var po,
                                     se = T(W, re),
                                     ie = T(X, re),
                                     oe = se * ie;
-                                  if (!Ee(se, ie, 0, G, ee)) break A;
+                                  if (!Qe(se, ie, 0, G, ee)) break A;
                                   for (
                                     ee = ee[0], $.xc = re, V = 0;
                                     V < oe;
@@ -43457,18 +43459,18 @@ var po,
                                       var Ce,
                                         xe = le,
                                         _e = G,
-                                        Qe = fe,
+                                        Ee = fe,
                                         Ue = pe,
                                         Le = q,
                                         Se = 0,
                                         Ie = _e.m,
                                         ke = y(Ie, 1);
-                                      if ((r(Qe, 0, 0, xe), ke)) {
+                                      if ((r(Ee, 0, 0, xe), ke)) {
                                         var Ne = y(Ie, 1) + 1,
                                           He = y(Ie, 1),
                                           Te = y(Ie, 0 == He ? 1 : 8);
-                                        ((Qe[Te] = 1),
-                                          2 == Ne && (Qe[(Te = y(Ie, 8))] = 1));
+                                        ((Ee[Te] = 1),
+                                          2 == Ne && (Ee[(Te = y(Ie, 8))] = 1));
                                         var Pe = 1;
                                       } else {
                                         var Me = s(19),
@@ -43485,7 +43487,7 @@ var po,
                                           Ve = _e,
                                           ze = Me,
                                           qe = xe,
-                                          Ge = Qe,
+                                          Ge = Ee,
                                           We = 0,
                                           Xe = Ve.m,
                                           Ye = 8,
@@ -43523,7 +43525,7 @@ var po,
                                         (We || (Ve.a = 3), (Pe = We));
                                       }
                                       ((Pe = Pe && !Ie.h) &&
-                                        (Se = c(Ue, Le, 8, Qe, xe)),
+                                        (Se = c(Ue, Le, 8, Ee, xe)),
                                         Pe && 0 != Se
                                           ? (De = Se)
                                           : ((_e.a = 3), (De = 0)));
@@ -44013,7 +44015,7 @@ var po,
                           for (i = 0; 8 > i; ++i)
                             for (s = 0; 3 > s; ++s)
                               for (l = 0; 11 > l; ++l)
-                                ((u = Q(o, ar[n][i][s][l])
+                                ((u = E(o, ar[n][i][s][l])
                                   ? p(o, 8)
                                   : ir[n][i][s][l]),
                                   (a.Wc[n][i].Yb[s][l] = u));
@@ -44028,33 +44030,33 @@ var po,
                       function Je(e, t, A, n, r, s, i) {
                         var o = t[r].Yb[A];
                         for (A = 0; 16 > r; ++r) {
-                          if (!Q(e, o[A + 0])) return r;
-                          for (; !Q(e, o[A + 1]); )
+                          if (!E(e, o[A + 0])) return r;
+                          for (; !E(e, o[A + 1]); )
                             if (((o = t[++r].Yb[0]), (A = 0), 16 == r))
                               return 16;
                           var a = t[r + 1].Yb;
-                          if (Q(e, o[A + 2])) {
+                          if (E(e, o[A + 2])) {
                             var l = e,
                               c = 0;
-                            if (Q(l, (d = o)[(u = A) + 3]))
-                              if (Q(l, d[u + 6])) {
+                            if (E(l, (d = o)[(u = A) + 3]))
+                              if (E(l, d[u + 6])) {
                                 for (
                                   o = 0,
                                     u =
-                                      2 * (c = Q(l, d[u + 8])) +
-                                      (d = Q(l, d[u + 9 + c])),
+                                      2 * (c = E(l, d[u + 8])) +
+                                      (d = E(l, d[u + 9 + c])),
                                     c = 0,
                                     d = nr[u];
                                   d[o];
                                   ++o
                                 )
-                                  c += c + Q(l, d[o]);
+                                  c += c + E(l, d[o]);
                                 c += 3 + (8 << u);
                               } else
-                                Q(l, d[u + 7])
-                                  ? ((c = 7 + 2 * Q(l, 165)), (c += Q(l, 145)))
-                                  : (c = 5 + Q(l, 159));
-                            else c = Q(l, d[u + 4]) ? 3 + Q(l, d[u + 5]) : 2;
+                                E(l, d[u + 7])
+                                  ? ((c = 7 + 2 * E(l, 165)), (c += E(l, 145)))
+                                  : (c = 5 + E(l, 159));
+                            else c = E(l, d[u + 4]) ? 3 + E(l, d[u + 5]) : 2;
                             o = a[2];
                           } else ((c = 1), (o = a[1]));
                           ((a = i + rr[r]), 0 > (l = e).b && j(l));
@@ -44257,10 +44259,10 @@ var po,
                           n = e[t - 1 + 32],
                           r = e[t - 1 + 64],
                           s = e[t - 1 + 96];
-                        (E(e, t + 0, 16843009 * vt(e[t - 1 - 32], A, n)),
-                          E(e, t + 32, 16843009 * vt(A, n, r)),
-                          E(e, t + 64, 16843009 * vt(n, r, s)),
-                          E(e, t + 96, 16843009 * vt(r, s, s)));
+                        (Q(e, t + 0, 16843009 * vt(e[t - 1 - 32], A, n)),
+                          Q(e, t + 32, 16843009 * vt(A, n, r)),
+                          Q(e, t + 64, 16843009 * vt(n, r, s)),
+                          Q(e, t + 96, 16843009 * vt(r, s, s)));
                       }
                       function Ct(e, t) {
                         var A,
@@ -44362,7 +44364,7 @@ var po,
                           (e[t + 3 + 64] = vt(i, o, a)),
                           (e[t + 3 + 96] = vt(o, a, l)));
                       }
-                      function Qt(e, t) {
+                      function Et(e, t) {
                         var A = e[t - 1 + 0],
                           n = e[t - 1 + 32],
                           r = e[t - 1 + 64],
@@ -44381,7 +44383,7 @@ var po,
                             e[t + 3 + 96] =
                               s));
                       }
-                      function Et(e, t) {
+                      function Qt(e, t) {
                         var A = e[t - 1 + 0],
                           n = e[t - 1 + 32],
                           r = e[t - 1 + 64],
@@ -44751,7 +44753,7 @@ var po,
                                 l.$a)
                               )
                                 e: {
-                                  (t(1 == l.$a), (A = Qe()));
+                                  (t(1 == l.$a), (A = Ee()));
                                   t: for (;;) {
                                     if (null == A) {
                                       A = 0;
@@ -44768,7 +44770,7 @@ var po,
                                       (A.l.height = l.i),
                                       (A.a = 0),
                                       m(A.m, c, p, g),
-                                      !Ee(l.c, l.i, 1, A, null))
+                                      !Qe(l.c, l.i, 1, A, null))
                                     )
                                       break t;
                                     if (
@@ -44868,11 +44870,11 @@ var po,
                                       }
                                       y = ge(y - 256, h);
                                       var F,
-                                        Q = we(j.G[4], j.H[4], h);
+                                        E = we(j.G[4], j.H[4], h);
                                       if (
                                         (_(h),
                                         !(
-                                          v >= (Q = me(g, (Q = ge(Q, h)))) &&
+                                          v >= (E = me(g, (E = ge(E, h)))) &&
                                           B - v >= y
                                         ))
                                       ) {
@@ -44880,7 +44882,7 @@ var po,
                                         break t;
                                       }
                                       for (F = 0; F < y; ++F)
-                                        c[p + v + F] = c[p + v + F - Q];
+                                        c[p + v + F] = c[p + v + F - E];
                                       for (v += y, d += y; d >= g; )
                                         ((d -= g),
                                           ++u <= A && !(u % 16) && _e(l, u));
@@ -45008,8 +45010,8 @@ var po,
                             var _ = o[a + v] | (l[c + v] << 16),
                               j = u[d + v] | (h[f + v] << 16),
                               F = b + _ + C + j + 524296,
-                              Q = (F + 2 * (_ + C)) >> 3;
-                            ((x = (Q + b) >> 1),
+                              E = (F + 2 * (_ + C)) >> 3;
+                            ((x = (E + b) >> 1),
                               (b = ((F = (F + 2 * (b + j)) >> 3) + _) >> 1),
                               n(
                                 e[A + 2 * v - 1],
@@ -45027,7 +45029,7 @@ var po,
                               ),
                               null != s &&
                                 ((x = (F + C) >> 1),
-                                (b = (Q + j) >> 1),
+                                (b = (E + j) >> 1),
                                 n(
                                   s[i + 2 * v - 1],
                                   255 & x,
@@ -45079,7 +45081,7 @@ var po,
                           (gr[zn] = br));
                       }
                       function wA(e) {
-                        return -16384 & e ? (0 > e ? 0 : 255) : e >> Qr;
+                        return -16384 & e ? (0 > e ? 0 : 255) : e >> Er;
                       }
                       function yA(e, t) {
                         return wA(
@@ -45126,10 +45128,10 @@ var po,
                       function FA(e, t, A, n, r) {
                         (CA(e, t, A, n, r), (n[r + 3] = 255));
                       }
-                      function QA(e, t, A, n, r) {
+                      function EA(e, t, A, n, r) {
                         (bA(e, t, A, n, r), (n[r + 3] = 255));
                       }
-                      function EA(t, A, n) {
+                      function QA(t, A, n) {
                         e[t] = function (e, t, r, s, i, o, a, l, c) {
                           for (var u = l + (-2 & c) * n; l != u; )
                             (A(e[t + 0], r[s + 0], i[o + 0], a, l),
@@ -45320,7 +45322,7 @@ var po,
                             var C = u,
                               x = d,
                               _ = (g = [0]);
-                            if ((((Q = h = [h])[0] = 0), 8 > y[0])) y = 7;
+                            if ((((E = h = [h])[0] = 0), 8 > y[0])) y = 7;
                             else {
                               if (!A(b, w[0], 'VP8X')) {
                                 if (10 != S(b, w[0] + 4)) {
@@ -45345,7 +45347,7 @@ var po,
                                   null != x && (x[0] = b),
                                   (w[0] += 18),
                                   (y[0] -= 18),
-                                  (Q[0] = 1));
+                                  (E[0] = 1));
                               }
                               y = 0;
                             }
@@ -45374,7 +45376,7 @@ var po,
                               (p.Sa = [p.Sa]));
                             e: {
                               ((j = e), (y = n), (v = r));
-                              var Q = p.gb;
+                              var E = p.gb;
                               ((C = p.na),
                                 (x = p.P),
                                 (_ = p.Sa),
@@ -45382,7 +45384,7 @@ var po,
                                 t(null != j),
                                 t(null != v),
                                 (b = y[0]));
-                              var E = v[0];
+                              var Q = v[0];
                               for (
                                 t(null != C),
                                   t(null != _),
@@ -45391,7 +45393,7 @@ var po,
                                   _[0] = 0;
                                 ;
                               ) {
-                                if (((y[0] = b), (v[0] = E), 8 > E)) {
+                                if (((y[0] = b), (v[0] = Q), 8 > Q)) {
                                   y = 7;
                                   break e;
                                 }
@@ -45401,7 +45403,7 @@ var po,
                                   break e;
                                 }
                                 var I = (8 + U + 1) & -2;
-                                if (((F += I), 0 < Q && F > Q)) {
+                                if (((F += I), 0 < E && F > E)) {
                                   y = 3;
                                   break e;
                                 }
@@ -45409,14 +45411,14 @@ var po,
                                   y = 0;
                                   break e;
                                 }
-                                if (E[0] < I) {
+                                if (Q[0] < I) {
                                   y = 7;
                                   break e;
                                 }
                                 (A(j, b, 'ALPH') ||
                                   ((C[0] = j), (x[0] = b + 8), (_[0] = U)),
                                   (b += I),
-                                  (E -= I));
+                                  (Q -= I));
                               }
                             }
                             if (
@@ -45430,16 +45432,16 @@ var po,
                           }
                           ((r = [r]), (p.Ja = [p.Ja]), (p.xa = [p.xa]));
                           e: if (
-                            ((Q = e),
+                            ((E = e),
                             (y = n),
                             (v = r),
                             (C = p.gb[0]),
                             (x = p.Ja),
                             (_ = p.xa),
                             (j = y[0]),
-                            (b = !A(Q, j, 'VP8 ')),
-                            (F = !A(Q, j, 'VP8L')),
-                            t(null != Q),
+                            (b = !A(E, j, 'VP8 ')),
+                            (F = !A(E, j, 'VP8L')),
+                            t(null != E),
                             t(null != v),
                             t(null != x),
                             t(null != _),
@@ -45448,23 +45450,23 @@ var po,
                             y = 7;
                           else {
                             if (b || F) {
-                              if (((Q = S(Q, j + 4)), 12 <= C && Q > C - 12)) {
+                              if (((E = S(E, j + 4)), 12 <= C && E > C - 12)) {
                                 y = 3;
                                 break e;
                               }
-                              if (f && Q > v[0] - 8) {
+                              if (f && E > v[0] - 8) {
                                 y = 7;
                                 break e;
                               }
-                              ((x[0] = Q),
+                              ((x[0] = E),
                                 (y[0] += 8),
                                 (v[0] -= 8),
                                 (_[0] = F));
                             } else
                               ((_[0] =
                                 5 <= v[0] &&
-                                47 == Q[j + 0] &&
-                                !(Q[j + 4] >> 5)),
+                                47 == E[j + 0] &&
+                                !(E[j + 4] >> 5)),
                                 (x[0] = v[0]));
                             y = 0;
                           }
@@ -45494,12 +45496,12 @@ var po,
                                 ? (e = 0)
                                 : 5 <= r && 47 == e[n + 0] && !(e[n + 4] >> 5)
                                   ? ((v = [0]),
-                                    (Q = [0]),
+                                    (E = [0]),
                                     (C = [0]),
                                     m((x = new B()), e, n, r),
-                                    pe(x, v, Q, C)
+                                    pe(x, v, E, C)
                                       ? (null != l && (l[0] = v[0]),
-                                        null != f && (f[0] = Q[0]),
+                                        null != f && (f[0] = E[0]),
                                         null != w && (w[0] = C[0]),
                                         (e = 1))
                                       : (e = 0))
@@ -45928,12 +45930,12 @@ var po,
                         _n,
                         jn = s(511),
                         Fn = s(2041),
-                        Qn = s(225),
-                        En = s(767),
+                        En = s(225),
+                        Qn = s(767),
                         Un = 0,
                         Ln = Fn,
-                        Sn = Qn,
-                        In = En,
+                        Sn = En,
+                        In = Qn,
                         kn = jn,
                         Nn = 0,
                         Hn = 1,
@@ -47064,7 +47066,7 @@ var po,
                         gr = [];
                       (gA('UpsampleRgbLinePair', bA, 3),
                         gA('UpsampleBgrLinePair', CA, 3),
-                        gA('UpsampleRgbaLinePair', QA, 4),
+                        gA('UpsampleRgbaLinePair', EA, 4),
                         gA('UpsampleBgraLinePair', FA, 4),
                         gA('UpsampleArgbLinePair', jA, 4),
                         gA('UpsampleRgba4444LinePair', _A, 2),
@@ -47080,21 +47082,21 @@ var po,
                         _r = 1 << (xr - 1),
                         jr = -227,
                         Fr = 482,
-                        Qr = 6,
-                        Er = 0,
+                        Er = 6,
+                        Qr = 0,
                         Ur = s(256),
                         Lr = s(256),
                         Sr = s(256),
                         Ir = s(256),
                         kr = s(Fr - jr),
                         Nr = s(Fr - jr);
-                      (EA('YuvToRgbRow', bA, 3),
-                        EA('YuvToBgrRow', CA, 3),
-                        EA('YuvToRgbaRow', QA, 4),
-                        EA('YuvToBgraRow', FA, 4),
-                        EA('YuvToArgbRow', jA, 4),
-                        EA('YuvToRgba4444Row', _A, 2),
-                        EA('YuvToRgb565Row', xA, 2));
+                      (QA('YuvToRgbRow', bA, 3),
+                        QA('YuvToBgrRow', CA, 3),
+                        QA('YuvToRgbaRow', EA, 4),
+                        QA('YuvToBgraRow', FA, 4),
+                        QA('YuvToArgbRow', jA, 4),
+                        QA('YuvToRgba4444Row', _A, 2),
+                        QA('YuvToRgb565Row', xA, 2));
                       var Hr = [
                           0, 4, 8, 12, 128, 132, 136, 140, 256, 260, 264, 268,
                           384, 388, 392, 396,
@@ -47175,7 +47177,7 @@ var po,
                                 (a.ma = u),
                                 l.xa)
                               ) {
-                                if (null == (e = Qe())) {
+                                if (null == (e = Ee())) {
                                   u = 1;
                                   break e;
                                 }
@@ -47200,7 +47202,7 @@ var po,
                                         ((e.xb = fr),
                                         (A.width = n[0]),
                                         (A.height = r[0]),
-                                        !Ee(n[0], r[0], 1, e, null))
+                                        !Qe(n[0], r[0], 1, e, null))
                                       )
                                         break t;
                                       return 1;
@@ -47500,14 +47502,14 @@ var po,
                                                       ? 127
                                                       : o;
                                               for (o = -112; 112 >= o; ++o)
-                                                Qn[112 + o] =
+                                                En[112 + o] =
                                                   -16 > o
                                                     ? -16
                                                     : 15 < o
                                                       ? 15
                                                       : o;
                                               for (o = -255; 510 >= o; ++o)
-                                                En[255 + o] =
+                                                Qn[255 + o] =
                                                   0 > o ? 0 : 255 < o ? 255 : o;
                                               Un = 1;
                                             }
@@ -47537,8 +47539,8 @@ var po,
                                               (ur[5] = jt),
                                               (ur[6] = _t),
                                               (ur[7] = Ft),
-                                              (ur[8] = Et),
-                                              (ur[9] = Qt),
+                                              (ur[8] = Qt),
+                                              (ur[9] = Et),
                                               (cr[0] = gt),
                                               (cr[1] = dt),
                                               (cr[2] = ht),
@@ -47572,12 +47574,12 @@ var po,
                                                   p = u.ya[u.aa + i];
                                                 if (
                                                   (u.Qa.Bb
-                                                    ? (p.$b = Q(c, u.Pa.jb[0])
-                                                        ? 2 + Q(c, u.Pa.jb[2])
-                                                        : Q(c, u.Pa.jb[1]))
+                                                    ? (p.$b = E(c, u.Pa.jb[0])
+                                                        ? 2 + E(c, u.Pa.jb[2])
+                                                        : E(c, u.Pa.jb[1]))
                                                     : (p.$b = 0),
-                                                  u.kc && (p.Ad = Q(c, u.Bd)),
-                                                  (p.Za = !Q(c, 145) + 0),
+                                                  u.kc && (p.Ad = E(c, u.Bd)),
+                                                  (p.Za = !E(c, 145) + 0),
                                                   p.Za)
                                                 ) {
                                                   var g = p.Ob,
@@ -47588,12 +47590,12 @@ var po,
                                                     for (w = 0; 4 > w; ++w) {
                                                       y = or[d[h + w]][y];
                                                       for (
-                                                        var v = sr[Q(c, y[0])];
+                                                        var v = sr[E(c, y[0])];
                                                         0 < v;
                                                       )
                                                         v =
                                                           sr[
-                                                            2 * v + Q(c, y[v])
+                                                            2 * v + E(c, y[v])
                                                           ];
                                                       ((y = -v),
                                                         (d[h + w] = y));
@@ -47603,19 +47605,19 @@ var po,
                                                       (f[0 + u] = y));
                                                   }
                                                 } else
-                                                  ((y = Q(c, 156)
-                                                    ? Q(c, 128)
+                                                  ((y = E(c, 156)
+                                                    ? E(c, 128)
                                                       ? 1
                                                       : 3
-                                                    : Q(c, 163)
+                                                    : E(c, 163)
                                                       ? 2
                                                       : 0),
                                                     (p.Ob[0] = y),
                                                     r(d, h, y, 4),
                                                     r(f, 0, y, 4));
-                                                p.Dd = Q(c, 142)
-                                                  ? Q(c, 114)
-                                                    ? Q(c, 183)
+                                                p.Dd = E(c, 142)
+                                                  ? E(c, 114)
+                                                    ? E(c, 183)
                                                       ? 1
                                                       : 3
                                                     : 2
@@ -47687,9 +47689,9 @@ var po,
                                                     ((C = 1), (x = h[0]));
                                                   }
                                                   var F = 15 & c.la,
-                                                    E = 15 & m.la;
+                                                    Q = 15 & m.la;
                                                   for (v = 0; 4 > v; ++v) {
-                                                    var U = 1 & E;
+                                                    var U = 1 & Q;
                                                     for (j = b = 0; 4 > j; ++j)
                                                       ((F =
                                                         (F >> 1) |
@@ -47713,25 +47715,25 @@ var po,
                                                               : 0 != u[g + 0])),
                                                         (g += 16));
                                                     ((F >>= 4),
-                                                      (E = (E >> 1) | (U << 7)),
+                                                      (Q = (Q >> 1) | (U << 7)),
                                                       (w =
                                                         ((w << 8) | b) >>> 0));
                                                   }
                                                   for (
-                                                    x = F, C = E >> 4, B = 0;
+                                                    x = F, C = Q >> 4, B = 0;
                                                     4 > B;
                                                     B += 2
                                                   ) {
                                                     for (
                                                       b = 0,
                                                         F = c.la >> (4 + B),
-                                                        E = m.la >> (4 + B),
+                                                        Q = m.la >> (4 + B),
                                                         v = 0;
                                                       2 > v;
                                                       ++v
                                                     ) {
                                                       for (
-                                                        U = 1 & E, j = 0;
+                                                        U = 1 & Q, j = 0;
                                                         2 > j;
                                                         ++j
                                                       )
@@ -47760,12 +47762,12 @@ var po,
                                                                   u[g + 0])),
                                                           (g += 16));
                                                       ((F >>= 2),
-                                                        (E =
-                                                          (E >> 1) | (U << 5)));
+                                                        (Q =
+                                                          (Q >> 1) | (U << 5)));
                                                     }
                                                     ((y |= b << (4 * B)),
                                                       (x |= (F << 4) << B),
-                                                      (C |= (240 & E) << B));
+                                                      (C |= (240 & Q) << B));
                                                   }
                                                   ((c.la = x),
                                                     (m.la = C),
@@ -47817,7 +47819,7 @@ var po,
                                                     (u = o.ra - d + j),
                                                     (g = o.Ha),
                                                     (m = o.Ia - d + j),
-                                                    (E = 0 == (F = b.M)),
+                                                    (Q = 0 == (F = b.M)),
                                                     (w = F >= o.Va - 1),
                                                     2 == o.Aa && SA(o, b),
                                                     b.uc)
@@ -47957,7 +47959,7 @@ var po,
                                                     if (
                                                       ((b = 16 * F),
                                                       (F = 16 * (F + 1)),
-                                                      E
+                                                      Q
                                                         ? ((a.y = o.sa),
                                                           (a.O = o.ta + v),
                                                           (a.f = o.qa),
@@ -49374,14 +49376,14 @@ var po,
                         );
                       if (this.autoPaging) {
                         for (
-                          var _, j = y.call(this, C), F = [], Q = 0;
-                          Q < j.length;
-                          Q += 1
+                          var _, j = y.call(this, C), F = [], E = 0;
+                          E < j.length;
+                          E += 1
                         )
-                          -1 === F.indexOf(j[Q]) && F.push(j[Q]);
+                          -1 === F.indexOf(j[E]) && F.push(j[E]);
                         b(F);
                         for (
-                          var E = F[0], U = F[F.length - 1], L = E;
+                          var Q = F[0], U = F[F.length - 1], L = Q;
                           L < U + 1;
                           L++
                         ) {
@@ -49423,7 +49425,7 @@ var po,
                             this.posX + this.margin[3],
                             -H + I + this.ctx.prevPageLastElemOffset
                           )[0];
-                          var O = (L > E || L < U) && w.call(this);
+                          var O = (L > Q || L < U) && w.call(this);
                           (O &&
                             (this.pdf.saveGraphicsState(),
                             this.pdf
@@ -49593,16 +49595,16 @@ var po,
                                 1 === _
                                   ? this.posY + this.margin[0]
                                   : this.margin[0],
-                              Q =
+                              E =
                                 this.pdf.internal.pageSize.height -
                                 this.posY -
                                 this.margin[0] -
                                 this.margin[2],
-                              E =
+                              Q =
                                 this.pdf.internal.pageSize.height -
                                 this.margin[0] -
                                 this.margin[2],
-                              U = 1 === _ ? 0 : Q + (_ - 2) * E;
+                              U = 1 === _ ? 0 : E + (_ - 2) * Q;
                             if (0 !== this.ctx.clip_path.length) {
                               var L = this.path;
                               ((a = JSON.parse(
@@ -49633,7 +49635,7 @@ var po,
                                     this.margin[3],
                                     this.margin[0],
                                     j,
-                                    E,
+                                    Q,
                                     null
                                   )
                                   .clip()
@@ -49752,7 +49754,7 @@ var po,
                                 C = r[w].start.y;
                               (I.call(this, r[w].deltas, b, C), (p = !0));
                             }
-                          (n && Q.call(this, n), t && E.call(this));
+                          (n && E.call(this, n), t && Q.call(this));
                         }
                       },
                       _ = function (e) {
@@ -49826,9 +49828,9 @@ var po,
                               u.y4
                             ));
                         }
-                        o ? E.call(this) : Q.call(this, i);
+                        o ? Q.call(this) : E.call(this, i);
                       },
-                      Q = function (e) {
+                      E = function (e) {
                         switch (e) {
                           case 'stroke':
                             this.pdf.internal.out('S');
@@ -49837,7 +49839,7 @@ var po,
                             this.pdf.internal.out('f');
                         }
                       },
-                      E = function () {
+                      Q = function () {
                         (this.pdf.clip(), this.pdf.discardPath());
                       },
                       U = function (e, t) {
@@ -49883,13 +49885,13 @@ var po,
                             -1 === m.indexOf(g[v]) && m.push(g[v]);
                           b(m);
                           for (
-                            var C = m[0], F = m[m.length - 1], Q = C;
-                            Q < F + 1;
-                            Q++
+                            var C = m[0], F = m[m.length - 1], E = C;
+                            E < F + 1;
+                            E++
                           ) {
-                            this.pdf.setPage(Q);
-                            var E =
-                                1 === Q
+                            this.pdf.setPage(E);
+                            var Q =
+                                1 === E
                                   ? this.posY + this.margin[0]
                                   : this.margin[0],
                               U =
@@ -49905,7 +49907,7 @@ var po,
                                 this.pdf.internal.pageSize.width -
                                 this.margin[1],
                               k = I - this.margin[3],
-                              N = 1 === Q ? 0 : U + (Q - 2) * S;
+                              N = 1 === E ? 0 : U + (E - 2) * S;
                             if (0 !== this.ctx.clip_path.length) {
                               var H = this.path;
                               ((A = JSON.parse(
@@ -49914,7 +49916,7 @@ var po,
                                 (this.path = B(
                                   A,
                                   this.posX + this.margin[3],
-                                  -1 * N + E
+                                  -1 * N + Q
                                 )),
                                 x.call(this, 'fill', !0),
                                 (this.path = H));
@@ -49922,7 +49924,7 @@ var po,
                             var T = B(
                               [JSON.parse(JSON.stringify(p))],
                               this.posX + this.margin[3],
-                              -N + E + this.ctx.prevPageLastElemOffset
+                              -N + Q + this.ctx.prevPageLastElemOffset
                             )[0];
                             e.scale >= 0.01 &&
                               ((n = this.pdf.internal.getFontSize()),
@@ -49931,7 +49933,7 @@ var po,
                               (this.lineWidth = r * e.scale));
                             var P = 'text' !== this.autoPaging;
                             if (P || T.y + T.h <= L) {
-                              if (P || (T.y >= E && T.x <= I)) {
+                              if (P || (T.y >= Q && T.x <= I)) {
                                 var M = P
                                     ? e.text
                                     : this.pdf.splitTextToSize(
@@ -49941,9 +49943,9 @@ var po,
                                   O = B(
                                     [JSON.parse(JSON.stringify(f))],
                                     this.posX + this.margin[3],
-                                    -N + E + this.ctx.prevPageLastElemOffset
+                                    -N + Q + this.ctx.prevPageLastElemOffset
                                   )[0],
-                                  D = P && (Q > C || Q < F) && w.call(this);
+                                  D = P && (E > C || E < F) && w.call(this);
                                 (D &&
                                   (this.pdf.saveGraphicsState(),
                                   this.pdf
@@ -50088,7 +50090,7 @@ var po,
                           _ = r - A,
                           j = s - n,
                           F = i - r,
-                          Q = o - s;
+                          E = o - s;
                         for (c = 0; c < 41; c++)
                           ((m =
                             (p =
@@ -50098,7 +50100,7 @@ var po,
                             (w =
                               (g =
                                 (d = t + l * x) + l * ((f = n + l * j) - d)) +
-                              l * (f + l * (s + l * Q - f) - g)),
+                              l * (f + l * (s + l * E - f) - g)),
                             0 == c
                               ? ((y = m), (v = w), (B = m), (b = w))
                               : ((y = Math.min(y, m)),
@@ -55909,8 +55911,8 @@ var po,
                             (this.cmap = new bt(this)),
                             (this.toUnicode = {}),
                             (this.hhea = new Ct(this)),
-                            (this.maxp = new Qt(this)),
-                            (this.hmtx = new Et(this)),
+                            (this.maxp = new Et(this)),
+                            (this.hmtx = new Qt(this)),
                             (this.post = new _t(this)),
                             (this.os2 = new xt(this)),
                             (this.loca = new kt(this)),
@@ -56482,8 +56484,8 @@ var po,
                             _,
                             j,
                             F,
-                            Q,
                             E,
+                            Q,
                             U,
                             L,
                             S,
@@ -56503,7 +56505,7 @@ var po,
                             q,
                             G;
                           switch (
-                            ((E = new gt()),
+                            ((Q = new gt()),
                             (s = Object.keys(e).sort(function (e, t) {
                               return e - t;
                             })),
@@ -56528,16 +56530,16 @@ var po,
                                   (r[n] = { old: e[n], new: m[e[n]] }),
                                   (p[n] = m[e[n]]));
                               return (
-                                E.writeUInt16(1),
-                                E.writeUInt16(0),
-                                E.writeUInt32(12),
-                                E.writeUInt16(0),
-                                E.writeUInt16(262),
-                                E.writeUInt16(0),
-                                E.write(p),
+                                Q.writeUInt16(1),
+                                Q.writeUInt16(0),
+                                Q.writeUInt32(12),
+                                Q.writeUInt16(0),
+                                Q.writeUInt16(262),
+                                Q.writeUInt16(0),
+                                Q.write(p),
                                 {
                                   charMap: r,
-                                  subtable: E.data,
+                                  subtable: Q.data,
                                   maxGlyphID: f + 1,
                                 }
                               );
@@ -56580,7 +56582,7 @@ var po,
                                   (o.push(0), B.push(0));
                                   break;
                                 }
-                                if (j - (Q = A[j].new) >= 32768)
+                                if (j - (E = A[j].new) >= 32768)
                                   for (
                                     o.push(0),
                                       B.push(2 * (d.length + x - h)),
@@ -56589,40 +56591,40 @@ var po,
                                     n = j <= l ? ++I : --I
                                   )
                                     d.push(A[n].new);
-                                else (o.push(Q - j), B.push(0));
+                                else (o.push(E - j), B.push(0));
                               }
                               for (
-                                E.writeUInt16(3),
-                                  E.writeUInt16(1),
-                                  E.writeUInt32(12),
-                                  E.writeUInt16(4),
-                                  E.writeUInt16(16 + 8 * x + 2 * d.length),
-                                  E.writeUInt16(0),
-                                  E.writeUInt16(_),
-                                  E.writeUInt16(C),
-                                  E.writeUInt16(u),
-                                  E.writeUInt16(b),
+                                Q.writeUInt16(3),
+                                  Q.writeUInt16(1),
+                                  Q.writeUInt32(12),
+                                  Q.writeUInt16(4),
+                                  Q.writeUInt16(16 + 8 * x + 2 * d.length),
+                                  Q.writeUInt16(0),
+                                  Q.writeUInt16(_),
+                                  Q.writeUInt16(C),
+                                  Q.writeUInt16(u),
+                                  Q.writeUInt16(b),
                                   R = 0,
                                   T = c.length;
                                 R < T;
                                 R++
                               )
-                                ((n = c[R]), E.writeUInt16(n));
+                                ((n = c[R]), Q.writeUInt16(n));
                               for (
-                                E.writeUInt16(0), K = 0, P = F.length;
+                                Q.writeUInt16(0), K = 0, P = F.length;
                                 K < P;
                                 K++
                               )
-                                ((n = F[K]), E.writeUInt16(n));
+                                ((n = F[K]), Q.writeUInt16(n));
                               for (z = 0, M = o.length; z < M; z++)
-                                ((i = o[z]), E.writeUInt16(i));
+                                ((i = o[z]), Q.writeUInt16(i));
                               for (q = 0, O = B.length; q < O; q++)
-                                ((y = B[q]), E.writeUInt16(y));
+                                ((y = B[q]), Q.writeUInt16(y));
                               for (G = 0, D = d.length; G < D; G++)
-                                ((f = d[G]), E.writeUInt16(f));
+                                ((f = d[G]), Q.writeUInt16(f));
                               return {
                                 charMap: A,
-                                subtable: E.data,
+                                subtable: Q.data,
                                 maxGlyphID: w + 1,
                               };
                           }
@@ -56908,7 +56910,7 @@ var po,
                         e
                       );
                     })(),
-                    Qt = (function () {
+                    Et = (function () {
                       function e() {
                         return e.__super__.constructor.apply(this, arguments);
                       }
@@ -56938,7 +56940,7 @@ var po,
                         e
                       );
                     })(),
-                    Et = (function () {
+                    Qt = (function () {
                       function e() {
                         return e.__super__.constructor.apply(this, arguments);
                       }
@@ -57319,7 +57321,7 @@ var po,
                         return FA;
                       },
                       default: function () {
-                        return QA;
+                        return EA;
                       },
                       deflate: function () {
                         return vA;
@@ -57409,7 +57411,7 @@ var po,
                       } while (--t > 0);
                       return A >>> 1;
                     },
-                    Q = (e, t, A) => {
+                    E = (e, t, A) => {
                       const n = new Array(16);
                       let r,
                         s,
@@ -57421,7 +57423,7 @@ var po,
                         0 !== t && (e[2 * s] = F(n[t]++, t));
                       }
                     },
-                    E = e => {
+                    Q = e => {
                       let t;
                       for (t = 0; t < s; t++) e.dyn_ltree[2 * t] = 0;
                       for (t = 0; t < i; t++) e.dyn_dtree[2 * t] = 0;
@@ -57573,7 +57575,7 @@ var po,
                                     u--));
                           }
                         })(e, t),
-                        Q(A, c, e.bl_count));
+                        E(A, c, e.bl_count));
                     },
                     N = (e, t, A) => {
                       let n,
@@ -57721,7 +57723,7 @@ var po,
                                 o + 1
                               ),
                               I(e, e.dyn_ltree, e.dyn_dtree)),
-                        E(e),
+                        Q(e),
                         n && U(e));
                     },
                     O = {
@@ -57752,7 +57754,7 @@ var po,
                               ((d[2 * e + 1] = 7), e++, u[7]++);
                             for (; e <= 287; )
                               ((d[2 * e + 1] = 8), e++, u[8]++);
-                            for (Q(d, 287, u), e = 0; e < i; e++)
+                            for (E(d, 287, u), e = 0; e < i; e++)
                               ((h[2 * e + 1] = 5), (h[2 * e] = F(e, 5)));
                             ((y = new w(d, a, 257, s, o)),
                               (v = new w(h, l, 0, i, o)),
@@ -57764,7 +57766,7 @@ var po,
                           (e.bl_desc = new b(e.bl_tree, B)),
                           (e.bi_buf = 0),
                           (e.bi_valid = 0),
-                          E(e));
+                          Q(e));
                       },
                       _tr_stored_block: P,
                       _tr_flush_block: M,
@@ -57955,11 +57957,11 @@ var po,
                     Fe = (e, t) => {
                       e.pending_buf[e.pending++] = t;
                     },
-                    Qe = (e, t) => {
+                    Ee = (e, t) => {
                       ((e.pending_buf[e.pending++] = (t >>> 8) & 255),
                         (e.pending_buf[e.pending++] = 255 & t));
                     },
-                    Ee = (e, t, A, n) => {
+                    Qe = (e, t, A, n) => {
                       let r = e.avail_in;
                       return (
                         r > n && (r = n),
@@ -58044,7 +58046,7 @@ var po,
                         )
                           break;
                         if (
-                          ((A = Ee(
+                          ((A = Qe(
                             e.strm,
                             e.window,
                             e.strstart + e.lookahead,
@@ -58117,7 +58119,7 @@ var po,
                             (e.block_start += n),
                             (A -= n)),
                           A &&
-                            (Ee(e.strm, e.strm.output, e.strm.next_out, A),
+                            (Qe(e.strm, e.strm.output, e.strm.next_out, A),
                             (e.strm.next_out += A),
                             (e.strm.avail_out -= A),
                             (e.strm.total_out += A)));
@@ -58188,7 +58190,7 @@ var po,
                                   (e.insert = e.strstart)),
                               r > e.strm.avail_in && (r = e.strm.avail_in),
                               r &&
-                                (Ee(e.strm, e.window, e.strstart, r),
+                                (Qe(e.strm, e.window, e.strstart, r),
                                 (e.strstart += r),
                                 (e.insert +=
                                   r > e.w_size - e.insert
@@ -58601,9 +58603,9 @@ var po,
                           (t |= n << 6),
                           0 !== A.strstart && (t |= 32),
                           (t += 31 - (t % 31)),
-                          Qe(A, t),
+                          Ee(A, t),
                           0 !== A.strstart &&
-                            (Qe(A, e.adler >>> 16), Qe(A, 65535 & e.adler)),
+                            (Ee(A, e.adler >>> 16), Ee(A, 65535 & e.adler)),
                           (e.adler = 1),
                           (A.status = we),
                           _e(e),
@@ -58954,7 +58956,7 @@ var po,
                                 Fe(A, (e.total_in >> 8) & 255),
                                 Fe(A, (e.total_in >> 16) & 255),
                                 Fe(A, (e.total_in >> 24) & 255))
-                              : (Qe(A, e.adler >>> 16), Qe(A, 65535 & e.adler)),
+                              : (Ee(A, e.adler >>> 16), Ee(A, 65535 & e.adler)),
                             _e(e),
                             A.wrap > 0 && (A.wrap = -A.wrap),
                             0 !== A.pending ? Ae : ne);
@@ -59545,8 +59547,8 @@ var po,
                       _ = null;
                     const j = new Uint16Array(16),
                       F = new Uint16Array(16);
-                    let Q,
-                      E,
+                    let E,
+                      Q,
                       U,
                       L = null;
                     for (p = 0; p <= ht; p++) j[p] = 0;
@@ -59585,18 +59587,18 @@ var po,
                     )
                       return 1;
                     for (;;) {
-                      ((Q = p - B),
+                      ((E = p - B),
                         i[g] + 1 < f
-                          ? ((E = 0), (U = i[g]))
+                          ? ((Q = 0), (U = i[g]))
                           : i[g] >= f
-                            ? ((E = L[i[g] - f]), (U = _[i[g] - f]))
-                            : ((E = 96), (U = 0)),
+                            ? ((Q = L[i[g] - f]), (U = _[i[g] - f]))
+                            : ((Q = 96), (U = 0)),
                         (l = 1 << (p - B)),
                         (c = 1 << v),
                         (m = c));
                       do {
                         ((c -= l),
-                          (r[h + (x >> B) + c] = (Q << 24) | (E << 16) | U));
+                          (r[h + (x >> B) + c] = (E << 24) | (Q << 16) | U));
                       } while (0 !== c);
                       for (l = 1 << (p - 1); x & l; ) l >>= 1;
                       if (
@@ -59637,8 +59639,8 @@ var po,
                       Z_STREAM_ERROR: _t,
                       Z_DATA_ERROR: jt,
                       Z_MEM_ERROR: Ft,
-                      Z_BUF_ERROR: Qt,
-                      Z_DEFLATED: Et,
+                      Z_BUF_ERROR: Et,
+                      Z_DEFLATED: Qt,
                     } = z,
                     Ut = 16180,
                     Lt = 16190,
@@ -59842,7 +59844,7 @@ var po,
                           x = 0;
                         const _ = new Uint8Array(4);
                         let j, F;
-                        const Q = new Uint8Array([
+                        const E = new Uint8Array([
                           16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2,
                           14, 1, 15,
                         ]);
@@ -59896,7 +59898,7 @@ var po,
                                   (A.mode = Pt));
                                 break;
                               }
-                              if ((15 & l) !== Et) {
+                              if ((15 & l) !== Qt) {
                                 ((e.msg = 'unknown compression method'),
                                   (A.mode = Pt));
                                 break;
@@ -59924,7 +59926,7 @@ var po,
                                 if (0 === o) break e;
                                 (o--, (l += n[s++] << c), (c += 8));
                               }
-                              if (((A.flags = l), (255 & A.flags) !== Et)) {
+                              if (((A.flags = l), (255 & A.flags) !== Qt)) {
                                 ((e.msg = 'unknown compression method'),
                                   (A.mode = Pt));
                                 break;
@@ -60197,11 +60199,11 @@ var po,
                                   if (0 === o) break e;
                                   (o--, (l += n[s++] << c), (c += 8));
                                 }
-                                ((A.lens[Q[A.have++]] = 7 & l),
+                                ((A.lens[E[A.have++]] = 7 & l),
                                   (l >>>= 3),
                                   (c -= 3));
                               }
-                              for (; A.have < 19; ) A.lens[Q[A.have++]] = 0;
+                              for (; A.have < 19; ) A.lens[E[A.have++]] = 0;
                               if (
                                 ((A.lencode = A.lendyn),
                                 (A.lenbits = 7),
@@ -60586,7 +60588,7 @@ var po,
                             (A.mode === Nt || A.mode === kt ? 256 : 0)),
                           ((0 === u && 0 === d) || t === yt) &&
                             C === bt &&
-                            (C = Qt),
+                            (C = Et),
                           C
                         );
                       },
@@ -60806,7 +60808,7 @@ var po,
                     _A = mA,
                     jA = wA,
                     FA = z,
-                    QA = {
+                    EA = {
                       Deflate: uA,
                       deflate: dA,
                       deflateRaw: hA,
@@ -61466,16 +61468,16 @@ var po,
                       for (
                         var j = l[b],
                           F = l[b + 1],
-                          Q = l[b + 2],
-                          E = l[b + 3],
+                          E = l[b + 2],
+                          Q = l[b + 3],
                           U = 0;
                         U < f;
                         U++
                       )
                         ((m.r = j),
                           (m.g = F),
-                          (m.b = Q),
-                          (m.a = E),
+                          (m.b = E),
+                          (m.a = Q),
                           (m = m.next));
                       for (
                         var L = 0,
@@ -61484,12 +61486,12 @@ var po,
                           k = 0,
                           N = f * j,
                           H = f * F,
-                          T = f * Q,
-                          P = f * E,
+                          T = f * E,
+                          P = f * Q,
                           M = p * j,
                           O = p * F,
-                          D = p * Q,
-                          R = p * E,
+                          D = p * E,
+                          R = p * Q,
                           K = 1;
                         K < f;
                         K++
@@ -61666,25 +61668,25 @@ var po,
                       F < i;
                       F++
                     ) {
-                      var Q = l[j],
-                        E = l[j + 1],
+                      var E = l[j],
+                        Q = l[j + 1],
                         U = l[j + 2],
-                        L = f * Q,
-                        S = f * E,
+                        L = f * E,
+                        S = f * Q,
                         I = f * U,
-                        k = p * Q,
-                        N = p * E,
+                        k = p * E,
+                        N = p * Q,
                         H = p * U;
                       m = g;
                       for (var T = 0; T < f; T++)
-                        ((m.r = Q), (m.g = E), (m.b = U), (m = m.next));
+                        ((m.r = E), (m.g = Q), (m.b = U), (m = m.next));
                       for (var P = 0, M = 0, O = 0, D = 1; D < f; D++)
                         ((y = j + ((u < D ? u : D) << 2)),
-                          (k += (m.r = Q = l[y]) * (v = f - D)),
-                          (N += (m.g = E = l[y + 1]) * v),
+                          (k += (m.r = E = l[y]) * (v = f - D)),
+                          (N += (m.g = Q = l[y + 1]) * v),
                           (H += (m.b = U = l[y + 2]) * v),
-                          (P += Q),
-                          (M += E),
+                          (P += E),
+                          (M += Q),
                           (O += U),
                           (m = m.next));
                       ((B = g), (b = a));
@@ -61703,11 +61705,11 @@ var po,
                           (N += M += B.g = l[y + 1]),
                           (H += O += B.b = l[y + 2]),
                           (B = B.next),
-                          (L += Q = b.r),
-                          (S += E = b.g),
+                          (L += E = b.r),
+                          (S += Q = b.g),
                           (I += U = b.b),
-                          (P -= Q),
-                          (M -= E),
+                          (P -= E),
+                          (M -= Q),
                           (O -= U),
                           (b = b.next),
                           (j += 4));
@@ -62194,19 +62196,19 @@ var po,
                                 F =
                                   x * (e * n + t * A) -
                                   2 * (C * A * n + _ * e * t),
-                                Q = C * A * A - x * e * A + _ * e * e,
-                                E =
-                                  ((Math.atan2(F, j - Q) + Math.PI) % Math.PI) /
+                                E = C * A * A - x * e * A + _ * e * e,
+                                Q =
+                                  ((Math.atan2(F, j - E) + Math.PI) % Math.PI) /
                                   2,
-                                U = Math.sin(E),
-                                L = Math.cos(E);
+                                U = Math.sin(Q),
+                                L = Math.cos(Q);
                               ((r.rX =
                                 Math.abs(g) /
-                                Math.sqrt(j * p(L) + F * U * L + Q * p(U))),
+                                Math.sqrt(j * p(L) + F * U * L + E * p(U))),
                                 (r.rY =
                                   Math.abs(g) /
-                                  Math.sqrt(j * p(U) - F * U * L + Q * p(L))),
-                                (r.xRot = (180 * E) / Math.PI));
+                                  Math.sqrt(j * p(U) - F * U * L + E * p(L))),
+                                (r.xRot = (180 * Q) / Math.PI));
                             }
                           return (
                             void 0 !== r.sweepFlag &&
@@ -62453,13 +62455,13 @@ var po,
                                     _ = C[1],
                                     j = [Math.cos(y * d), Math.sin(y * d)],
                                     F = j[0],
-                                    Q = j[1],
-                                    E = [
+                                    E = j[1],
+                                    Q = [
                                       F + B * Math.sin(y * d),
-                                      Q - B * Math.cos(y * d),
+                                      E - B * Math.cos(y * d),
                                     ],
-                                    U = E[0],
-                                    L = E[1];
+                                    U = Q[0],
+                                    L = Q[1];
                                   f[m] = {
                                     relative: e.relative,
                                     type: b.CURVE_TO,
@@ -62476,7 +62478,7 @@ var po,
                                     (r = S(U, L)),
                                     (f[m].x2 = r[0]),
                                     (f[m].y2 = r[1]),
-                                    (s = S(F, Q)),
+                                    (s = S(F, E)),
                                     (f[m].x = s[0]),
                                     (f[m].y = s[1]),
                                     e.relative &&
@@ -62575,20 +62577,20 @@ var po,
                                         : [r.phi2, r.phi1],
                                   j = _[0],
                                   F = _[1],
-                                  Q = function (e) {
+                                  E = function (e) {
                                     var t = e[0],
                                       A = e[1],
                                       n = (180 * Math.atan2(A, t)) / Math.PI;
                                     return n < j ? n + 360 : n;
                                   },
-                                  E = 0,
-                                  U = c(C, -v, 0).map(Q);
-                                E < U.length;
-                                E++
+                                  Q = 0,
+                                  U = c(C, -v, 0).map(E);
+                                Q < U.length;
+                                Q++
                               )
-                                (I = U[E]) > j && I < F && a(f(r.cX, v, C, I));
+                                (I = U[Q]) > j && I < F && a(f(r.cX, v, C, I));
                               for (
-                                var L = 0, S = c(x, -B, 0).map(Q);
+                                var L = 0, S = c(x, -B, 0).map(E);
                                 L < S.length;
                                 L++
                               ) {
@@ -63666,10 +63668,10 @@ var po,
                       F = n(t.options);
                     try {
                       for (F.s(); !(j = F.n()).done; ) {
-                        var Q = j.value;
-                        Q.value === r
-                          ? Q.setAttribute('selected', '')
-                          : Q.removeAttribute('selected');
+                        var E = j.value;
+                        E.value === r
+                          ? E.setAttribute('selected', '')
+                          : E.removeAttribute('selected');
                       }
                     } catch (e) {
                       F.e(e);
@@ -63677,16 +63679,16 @@ var po,
                       F.f();
                     }
                   }
-                  var E = e.scrollLeft,
+                  var Q = e.scrollLeft,
                     U = e.scrollTop;
-                  if ((E || U) && t instanceof HTMLElement) {
+                  if ((Q || U) && t instanceof HTMLElement) {
                     ((t.style.overflow = 'hidden'),
                       (t.style.scrollbarWidth = 'none'),
                       (t.style.msOverflowStyle = 'none'));
                     var L = document.createElement('div');
                     for (
                       L.style.transform = 'translate('
-                        .concat(-E, 'px, ')
+                        .concat(-Q, 'px, ')
                         .concat(-U, 'px)'),
                         L.style.willChange = 'transform',
                         L.style.display = 'inline-block',
@@ -64502,8 +64504,8 @@ class wo {
   ) {
     ((this.dynamicComponents = e),
       (this.initialDesign = t),
-      (this.canvas = new Q()),
-      (this.sidebar = new E(this.canvas)),
+      (this.canvas = new E()),
+      (this.sidebar = new Q(this.canvas)),
       (this.htmlGenerator = new H(this.canvas)),
       (this.jsonStorage = new g()),
       (this.previewPanel = new M()),
@@ -64517,8 +64519,8 @@ class wo {
     wo.headerInitialized = !1;
   }
   initializeEventListeners() {
-    ((this.canvas = new Q()),
-      (this.sidebar = new E(this.canvas)),
+    ((this.canvas = new E()),
+      (this.sidebar = new Q(this.canvas)),
       (this.htmlGenerator = new H(this.canvas)),
       (this.jsonStorage = new g()),
       (this.previewPanel = new M()),
@@ -64680,7 +64682,7 @@ class wo {
         }),
         A.appendChild(s));
     })(this.dynamicComponents, this.editable),
-      Q.init(
+      E.init(
         this.initialDesign,
         this.editable,
         this.dynamicComponents.Basic,
@@ -64721,7 +64723,7 @@ class wo {
                   menu: v.customizationMenu,
                   sidebarMenu: v.sidebarMenu,
                 },
-                s = 'grid' === Q.layoutMode,
+                s = 'grid' === E.layoutMode,
                 i = (
                   e
                     ? [
@@ -64894,7 +64896,7 @@ class wo {
     const e = document.getElementById('save-btn');
     e &&
       e.addEventListener('click', () => {
-        const e = Q.getState();
+        const e = E.getState();
         (this.jsonStorage.save(e), w('Saving progress...'));
       });
   }
@@ -64921,7 +64923,7 @@ class wo {
           'Are you sure you want to reset the layout?',
           () => {
             (this.jsonStorage.remove(),
-              Q.clearCanvas(),
+              E.clearCanvas(),
               w('The saved layout has been successfully reset.'));
           },
           () => {
@@ -64958,7 +64960,7 @@ class wo {
     const e = document.getElementById('export-html-btn');
     e &&
       e.addEventListener('click', () => {
-        const e = new H(new Q()),
+        const e = new H(new E()),
           t = e.generateHTML(),
           A = e.generateCSS(),
           n = (function (e) {
@@ -65005,7 +65007,7 @@ class wo {
           try {
             const e = mo();
             if (!e) return void w('html2pdf library not loaded');
-            const A = new H(new Q()),
+            const A = new H(new E()),
               n = A.generateHTML();
             let r = A.generateCSS();
             const s = document.getElementById('canvas');
@@ -65143,6 +65145,14 @@ class wo {
     const e = document.getElementById('view-btn');
     e &&
       e.addEventListener('click', () => {
+        if ('grid' === this.layoutMode) {
+          const e = document.getElementById('customization');
+          e && ((e.style.display = 'none'), e.classList.remove('visible'));
+          const t = document.getElementById('sidebar');
+          t && (t.style.display = 'none');
+          const A = document.getElementById('menu-btn');
+          A && ((A.style.backgroundColor = ''), (A.style.borderColor = ''));
+        }
         const e = this.htmlGenerator.generateHTML(),
           t = this.createFullScreenPreviewModal(e);
         document.body.appendChild(t);
@@ -65152,13 +65162,26 @@ class wo {
     const t = document.createElement('div');
     ((t.id = 'preview-modal'),
       (t.style.cssText =
-        '\n      position: fixed;\n      top: 0;\n      left: 0;\n      width: 100vw;\n      height: 100vh;\n      z-index: 10000;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: flex-start;\n      background-color: #ffffff;\n    '));
+        '\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    z-index: 10000;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: flex-start;\n    background-color: #ffffff;\n  '));
     const A = document.createElement('iframe');
-    ((A.id = 'preview-iframe'),
+    if (
+      ((A.id = 'preview-iframe'),
       (A.style.cssText =
-        '\n      width: 100%;\n      height: 100%;\n      border: none;\n      background: #fff;\n    '),
-      (A.srcdoc = e),
-      t.appendChild(A));
+        '\n    width: 100%;\n    height: 100%;\n    border: none;\n    background: #f8fafc;\n  '),
+      'absolute' === this.layoutMode)
+    ) {
+      const t =
+        '\n      <style id="a4-preview-styles">\n        html, body {\n          margin: 0 !important;\n          padding: 0 !important;\n          background-color: #f0f2f5 !important;\n          min-height: 100vh !important;\n          overflow-y: auto !important;\n          overflow-x: hidden !important;\n        }\n        #a4-paper-wrapper {\n          width: 794px;\n          min-height: 1123px;\n          background-color: #ffffff;\n          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);\n          border-radius: 2px;\n          position: relative;\n          margin: 0 auto;\n          box-sizing: border-box;\n          overflow: hidden;\n\n        }\n      </style>\n    ';
+      let n = e.includes('</head>')
+        ? e.replace('</head>', `${t}</head>`)
+        : `${t}${e}`;
+      ((n = n.replace(
+        /(<body[^>]*>)([\s\S]*)(<\/body>)/,
+        (e, t, A, n) => `${t}<div id="a4-paper-wrapper">${A}</div>${n}`
+      )),
+        (A.srcdoc = n));
+    } else A.srcdoc = e;
+    t.appendChild(A);
     const n = this.createPreviewCloseButton(t);
     t.appendChild(n);
     const r = this.createResponsivenessControls(A);
@@ -65169,10 +65192,16 @@ class wo {
     ((t.id = 'close-modal-btn'),
       (t.innerHTML = v.closePreviewBtn),
       (t.style.cssText =
-        '\n      position: absolute;\n      top: 0;\n      left:0;\n      font-size: 20px;\n      border: none;\n      background: none;\n      font:bold;\n      color:black;\n      cursor: pointer;\n    '));
+        '\n    position: absolute;\n    top: 0;\n    left:0;\n    font-size: 20px;\n    border: none;\n    background: none;\n    font:bold;\n    color:black;\n    cursor: pointer;\n  '));
     const A = () => {
-      (setTimeout(() => e.remove(), 300),
-        document.removeEventListener('keydown', n));
+      if (
+        (setTimeout(() => e.remove(), 300),
+        document.removeEventListener('keydown', n),
+        'grid' === this.layoutMode)
+      ) {
+        const e = document.getElementById('sidebar');
+        e && (e.style.display = '');
+      }
     };
     t.addEventListener('click', A);
     const n = e => {
@@ -65234,11 +65263,11 @@ class wo {
       t = document.getElementById('redo-btn');
     (e &&
       e.addEventListener('click', () => {
-        Q.historyManager.undo();
+        E.historyManager.undo();
       }),
       t &&
         t.addEventListener('click', () => {
-          Q.historyManager.redo();
+          E.historyManager.redo();
         }));
   }
 }

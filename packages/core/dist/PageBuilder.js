@@ -461,6 +461,26 @@ export class PageBuilder {
     const viewButton = document.getElementById('view-btn');
     if (viewButton) {
       viewButton.addEventListener('click', () => {
+        // Close BOTH sidebars in grid layout mode
+        if (this.layoutMode === 'grid') {
+          // Hide customization sidebar
+          const customizationSidebar = document.getElementById('customization');
+          if (customizationSidebar) {
+            customizationSidebar.style.display = 'none';
+            customizationSidebar.classList.remove('visible');
+          }
+          // Hide left sidebar too
+          const leftSidebar = document.getElementById('sidebar');
+          if (leftSidebar) {
+            leftSidebar.style.display = 'none';
+          }
+          // Reset menu button style
+          const menuButton = document.getElementById('menu-btn');
+          if (menuButton) {
+            menuButton.style.backgroundColor = '';
+            menuButton.style.borderColor = '';
+          }
+        }
         const html = this.htmlGenerator.generateHTML();
         const fullScreenModal = this.createFullScreenPreviewModal(html);
         document.body.appendChild(fullScreenModal);
@@ -471,27 +491,66 @@ export class PageBuilder {
     const fullScreenModal = document.createElement('div');
     fullScreenModal.id = 'preview-modal';
     fullScreenModal.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      background-color: #ffffff;
-    `;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #ffffff;
+  `;
     const iframe = document.createElement('iframe');
     iframe.id = 'preview-iframe';
     iframe.style.cssText = `
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #fff;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #f8fafc;
+  `;
+    if (this.layoutMode === 'absolute') {
+      const a4Styles = `
+      <style id="a4-preview-styles">
+        html, body {
+          margin: 0 !important;
+          padding: 0 !important;
+          background-color: #f0f2f5 !important;
+          min-height: 100vh !important;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+        }
+        #a4-paper-wrapper {
+          width: 794px;
+          min-height: 1123px;
+          background-color: #ffffff;
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+          border-radius: 2px;
+          position: relative;
+          margin: 0 auto;
+          box-sizing: border-box;
+          overflow: hidden;
+
+        }
+      </style>
     `;
-    iframe.srcdoc = html;
+      // Inject styles and wrap the entire body content in the A4 paper div
+      let finalHtml = html.includes('</head>')
+        ? html.replace('</head>', `${a4Styles}</head>`)
+        : `${a4Styles}${html}`;
+      // Wrap body content in A4 paper wrapper
+      finalHtml = finalHtml.replace(
+        /(<body[^>]*>)([\s\S]*)(<\/body>)/,
+        (_match, openTag, bodyContent, closeTag) => {
+          return `${openTag}<div id="a4-paper-wrapper">${bodyContent}</div>${closeTag}`;
+        }
+      );
+      iframe.srcdoc = finalHtml;
+    } else {
+      iframe.srcdoc = html;
+    }
     fullScreenModal.appendChild(iframe);
     const closeButton = this.createPreviewCloseButton(fullScreenModal);
     fullScreenModal.appendChild(closeButton);
@@ -504,19 +563,27 @@ export class PageBuilder {
     closeButton.id = 'close-modal-btn';
     closeButton.innerHTML = svgs.closePreviewBtn;
     closeButton.style.cssText = `
-      position: absolute;
-      top: 0;
-      left:0;
-      font-size: 20px;
-      border: none;
-      background: none;
-      font:bold;
-      color:black;
-      cursor: pointer;
-    `;
+    position: absolute;
+    top: 0;
+    left:0;
+    font-size: 20px;
+    border: none;
+    background: none;
+    font:bold;
+    color:black;
+    cursor: pointer;
+  `;
     const closeModal = () => {
       setTimeout(() => fullScreenModal.remove(), 300);
       document.removeEventListener('keydown', escKeyListener);
+      // Restore sidebars when closing preview in grid mode
+      if (this.layoutMode === 'grid') {
+        const leftSidebar = document.getElementById('sidebar');
+        if (leftSidebar) {
+          leftSidebar.style.display = '';
+        }
+        // Don't automatically reopen customization sidebar - let user control it
+      }
     };
     closeButton.addEventListener('click', closeModal);
     const escKeyListener = event => {

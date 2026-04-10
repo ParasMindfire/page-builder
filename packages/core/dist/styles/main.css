@@ -48,6 +48,7 @@ html {
 /* App Container */
 #app {
   display: flex;
+  justify-content: center;
   background-color: #f8fafc;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -73,6 +74,7 @@ html {
 }
 
 /* Canvas Area */
+/* Canvas Area */
 #canvas {
   width: 100%;
   flex-grow: 1;
@@ -81,35 +83,32 @@ html {
   overflow: auto;
   box-sizing: border-box;
   height: calc(100vh - 40px);
-  background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px);
 }
 
-#canvas.grid-layout-active {
-  display: block;
-  height: calc(100vh - 40px);
-
-}
-
+/* A4 Paper View for Absolute Layout - CENTERED */
 #canvas.preview-printable {
   max-width: 869px;
-  max-height: 1123px;
-  margin-left: auto;
-  margin-right: auto;
+  min-height: 1123px; /* A4 height */
+  margin: 0 auto; /* Center horizontally */
   background-color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   position: relative;
-  padding-top: 75px;
-  padding-left: 75px;
-  padding-right: 75px;
+  padding: 75px; /* All sides padding */
   overflow: auto;
-  
-}
-/* L-shaped corner margin indicators - Word style */
-#canvas.preview-printable {
-  position: relative;
+  width: 869px; /* Fixed width for A4 */
 }
 
+/* Grid layout full width */
+#canvas.grid-layout-active {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* L-shaped corner margin indicators - Word style */
 #canvas.preview-printable::before {
   content: '';
   position: absolute;
@@ -136,13 +135,11 @@ html {
   z-index: 1;
 }
 
-/* Add bottom corners using additional styling */
+/* Bottom corners */
 #canvas.preview-printable {
   background-image: 
-    /* Bottom-left L */
     linear-gradient(to right, #94a3b8 1.5px, transparent 1.5px),
     linear-gradient(to bottom, #94a3b8 1.5px, transparent 1.5px),
-    /* Bottom-right L */
     linear-gradient(to left, #94a3b8 1.5px, transparent 1.5px),
     linear-gradient(to bottom, #94a3b8 1.5px, transparent 1.5px);
   
@@ -159,15 +156,6 @@ html {
     calc(100% - 75px) calc(100% - 75px);
   
   background-repeat: no-repeat;
-}
-
-#canvas.preview-printable.grid-layout-active {
-  max-width: 100%;
-  /* Keep grid mode full width */
-  margin: 0;
-  box-shadow: none;
-  border-radius: 0;
-  padding: 0;
 }
 
 
@@ -983,14 +971,28 @@ html {
 
 /* Modal styles */
 #preview-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  z-index: 9999;
-  overflow: auto;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 10000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#preview-modal #preview-iframe {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100vw !important;
+}
+
+#preview-iframe body,
+#preview-iframe #canvas {
+  width: 100% !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /*************************************EXPORT MODAL************************************/
@@ -1158,20 +1160,63 @@ html {
 
 /*************************************TABLE COMPONENT************************************/
 
+/* Table component responsive fixes */
 .table-component {
   background-color: #ffffff;
   border-radius: 6px;
   padding: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.table-component {
-  border-radius: 4px;
-  overflow: auto;
-}
-
-.table-cell {
+  max-width: 100%;
+  overflow-x: auto;
   box-sizing: border-box;
+}
+
+.table-component table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+/* Grid layout specific fixes */
+#canvas.grid-layout-active .table-component {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+#canvas.grid-layout-active .table-component table {
+  width: 100%;
+  table-layout: auto;
+}
+
+/* Preview mode fixes */
+#canvas.preview-desktop .table-component,
+#canvas.preview-tablet .table-component,
+#canvas.preview-mobile .table-component {
+  max-width: 100%;
+  overflow-x: visible;
+}
+
+#canvas.preview-desktop .table-component table,
+#canvas.preview-tablet .table-component table,
+#canvas.preview-mobile .table-component table {
+  width: 100%;
+  table-layout: auto;
+}
+
+/* Table cell word wrapping */
+.table-cell {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  box-sizing: border-box;
+}
+
+.table-cell-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .table-row {

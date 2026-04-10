@@ -107,8 +107,10 @@ export class Canvas {
     if (Canvas.canvasElement) {
       if (this.layoutMode === 'absolute') {
         Canvas.canvasElement.classList.add('preview-printable');
+        Canvas.canvasElement.classList.remove('grid-layout-active');
       } else {
         Canvas.canvasElement.classList.remove('preview-printable');
+        Canvas.canvasElement.classList.add('grid-layout-active');
       }
     }
     Canvas.sidebarElement = document.getElementById('sidebar')!;
