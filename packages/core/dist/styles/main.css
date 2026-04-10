@@ -1179,11 +1179,11 @@ html {
 }
 
 /* Grid layout specific fixes */
-#canvas.grid-layout-active .table-component {
+/* #canvas.grid-layout-active .table-component {
   width: 100%;
   max-width: 100%;
   overflow: visible;
-}
+} */
 
 #canvas.grid-layout-active .table-component table {
   width: 100%;
