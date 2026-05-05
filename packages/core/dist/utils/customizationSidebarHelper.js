@@ -1,4 +1,4 @@
-import { createPageSizeSelect, createControl, createSelectControl, rgbToHex, createAttributeControls, populateModalButton, populateRowVisibilityControls, } from './sidebarHelperCore.js';
+import { createPageSizeSelect, createControl, createSelectControl, createSpacingControl, rgbToHex, createAttributeControls, populateModalButton, populateRowVisibilityControls, } from './sidebarHelperCore.js';
 /*
  * SidebarUtils — public API used by CustomizationSidebar and other consumers.
  * All logic lives in ./sidebarHelperCore/; this class is a thin delegation layer
@@ -12,6 +12,10 @@ export class SidebarUtils {
     /* Builds an input row (number / color / text) with optional unit selector */
     static createControl(label, id, type, value, controlsContainer, attributes = {}) {
         createControl(label, id, type, value, controlsContainer, attributes);
+    }
+    /* Builds a spacing (margin/padding) control with all-sides and custom-sides toggle */
+    static createSpacingControl(label, id, mode, allValue, allUnit, sides, controlsContainer, attributes = {}) {
+        createSpacingControl(label, id, mode, allValue, allUnit, sides, controlsContainer, attributes);
     }
     /* Builds a labelled <select> control */
     static createSelectControl(label, id, currentValue, options, controlsContainer) {
