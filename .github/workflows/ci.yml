@@ -86,6 +86,9 @@ jobs:
         run: |
           git pull origin main
 
+      - name: Build application
+        run: pnpm turbo run build
+
       - name: Publish to npm
         id: changesets
         uses: changesets/action@v1.4.1
