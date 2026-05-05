@@ -1,29 +1,29 @@
 export class DeleteElementHandler {
-  constructor() {
-    this.selectedElement = null;
-    // Listen for keydown events
-    document.addEventListener('keydown', this.handleKeydown.bind(this));
-  }
-  // Method to delete the selected element
-  deleteSelectedElement() {
-    if (this.selectedElement) {
-      this.selectedElement.remove();
-      this.selectedElement = null;
+    constructor() {
+        this.selectedElement = null;
+        // Listen for keydown events
+        document.addEventListener('keydown', this.handleKeydown.bind(this));
     }
-  }
-  // Handle keydown events
-  handleKeydown(event) {
-    if (event.key === 'Delete') {
-      this.deleteSelectedElement();
+    // Method to delete the selected element
+    deleteSelectedElement() {
+        if (this.selectedElement) {
+            this.selectedElement.remove();
+            this.selectedElement = null;
+        }
     }
-  }
-  // Method to set the selected element
-  selectElement(element) {
-    console.log(element, 'clcikced');
-    if (this.selectedElement) {
-      this.selectedElement.classList.remove('selected');
+    // Handle keydown events
+    handleKeydown(event) {
+        if (event.key === 'Delete') {
+            this.deleteSelectedElement();
+        }
     }
-    this.selectedElement = element;
-    this.selectedElement.classList.add('selected');
-  }
+    // Method to set the selected element
+    selectElement(element) {
+        console.log(element, 'clcikced');
+        if (this.selectedElement) {
+            this.selectedElement.classList.remove('selected');
+        }
+        this.selectedElement = element;
+        this.selectedElement.classList.add('selected');
+    }
 }
