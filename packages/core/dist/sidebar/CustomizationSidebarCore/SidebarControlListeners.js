@@ -67,7 +67,8 @@ export function addControlListeners(component, controlsContainer, addListenersFn
         if (sideInput) {
             const apply = () => {
                 const unit = (sideUnit === null || sideUnit === void 0 ? void 0 : sideUnit.value) || 'px';
-                component.style[prop] = `${sideInput.value || '0'}${unit}`;
+                component.style[prop] =
+                    `${sideInput.value || '0'}${unit}`;
                 captureStateDebounced();
             };
             sideInput.addEventListener('input', apply);
@@ -99,7 +100,8 @@ export function addControlListeners(component, controlsContainer, addListenersFn
         if (sideInput) {
             const apply = () => {
                 const unit = (sideUnit === null || sideUnit === void 0 ? void 0 : sideUnit.value) || 'px';
-                component.style[prop] = `${sideInput.value || '0'}${unit}`;
+                component.style[prop] =
+                    `${sideInput.value || '0'}${unit}`;
                 captureStateDebounced();
             };
             sideInput.addEventListener('input', apply);

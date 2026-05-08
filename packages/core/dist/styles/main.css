@@ -1320,6 +1320,128 @@ html {
   background-color: #059669;
 }
 
+/************************************RICH TEXT TOOLBAR************************************/
+
+.rte-toolbar {
+  position: fixed;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 4px 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  user-select: none;
+  max-width: 98vw;
+}
+
+.rte-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 5px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #334155;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.rte-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.rte-btn.rte-active {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.rte-sep {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: #e2e8f0;
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+
+.rte-select {
+  height: 28px;
+  padding: 0 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.rte-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.rte-block-sel {
+  width: 100px;
+}
+
+.rte-size-sel {
+  width: 68px;
+}
+
+/* Color picker wrapper */
+.rte-color-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  gap: 1px;
+}
+
+.rte-color-wrap:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.rte-color-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  line-height: 1;
+}
+
+.rte-color-swatch {
+  display: block;
+  width: 16px;
+  height: 3px;
+  border-radius: 1px;
+}
+
+.rte-color-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /************************************LINK COMPONENT************************************/
 
 .link-component {

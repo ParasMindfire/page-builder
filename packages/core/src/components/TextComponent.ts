@@ -1,5 +1,18 @@
 import { Canvas } from '../canvas/Canvas';
 import { ModalComponent } from './ModalManager';
+import {
+  attachToolbar,
+  detachToolbar,
+  repositionToolbar,
+} from './TextCore/TextRichToolbar';
+
+function wireToolbar(span: HTMLElement): void {
+  span.addEventListener('focus', () => attachToolbar(span));
+  span.addEventListener('blur', e =>
+    detachToolbar((e as FocusEvent).relatedTarget)
+  );
+  span.addEventListener('keyup', () => repositionToolbar(span));
+}
 
 export class TextComponent {
   private text: string;
@@ -28,6 +41,8 @@ export class TextComponent {
         (parentHeader as HTMLElement).click();
       }
     });
+
+    wireToolbar(textSpan);
 
     return element;
   }
@@ -139,6 +154,8 @@ export class TextComponent {
         (parentHeader as HTMLElement).click();
       }
     });
+
+    wireToolbar(textSpan);
 
     if (closestTextComponent && textSpan) {
       const attributeKey =
